@@ -1,0 +1,36 @@
+.header {
+  background-color: #1c1c21;
+}
+
+.container {
+  box-sizing: content-box;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+  position: relative;
+}
+
+.left {
+  position: absolute;
+  left: 0;
+}
+.right {
+  position: absolute;
+  right: 0;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+.qwe {
+  composes: text text_type_main-default from global;
+}
