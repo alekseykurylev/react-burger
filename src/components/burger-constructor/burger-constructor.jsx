@@ -23,7 +23,7 @@ const BurgerConstructor = ({ data }) => {
           {data
             .filter((ingredient) => ingredient.type !== "bun")
             .map((ingredient) => (
-              <li className={burgerConstructor.dragItem}>
+              <li key={ingredient._id} className={burgerConstructor.dragItem}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   key={ingredient._id}
