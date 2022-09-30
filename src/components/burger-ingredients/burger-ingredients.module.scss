@@ -9,7 +9,7 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 24px;
   row-gap: 32px;
-  composes: pt-6 pb-10 pl-4 pr-4 from global;
+  composes: pt-6 pb-10 pl-4 pr-2 from global;
 }
 
 .menu {
