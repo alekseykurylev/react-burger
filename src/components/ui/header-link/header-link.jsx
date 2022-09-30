@@ -1,11 +1,9 @@
-import headerLink from "./header-link.module.css";
+import headerLink from "./header-link.module.scss";
 
 const HeaderLink = ({ children, icon, active }) => {
   return (
     <a
-      className={`text text_type_main-default text_color_inactive ${
-        headerLink.link
-      } ${active ? headerLink.active : ""}`}
+      className={`${headerLink.link} ${active ? headerLink.active : ""}`}
       href="/"
     >
       {icon}
