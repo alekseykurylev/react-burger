@@ -3,13 +3,11 @@
 }
 
 .container {
-  box-sizing: content-box;
+  composes: container from global;
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 30px;
 }
 
-.wrap {
+.grid {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,6 +19,7 @@
   position: absolute;
   left: 0;
 }
+
 .right {
   position: absolute;
   right: 0;
@@ -29,8 +28,4 @@
 .nav {
   display: flex;
   gap: 8px;
-}
-
-.qwe {
-  composes: text text_type_main-default from global;
 }

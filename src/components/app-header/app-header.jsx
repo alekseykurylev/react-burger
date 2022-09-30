@@ -1,4 +1,4 @@
-import appHeader from "./app-header.module.css";
+import appHeader from "./app-header.module.scss";
 import {
   Logo,
   BurgerIcon,
@@ -11,7 +11,7 @@ const AppHeader = () => {
   return (
     <header className={appHeader.header}>
       <div className={appHeader.container}>
-        <div className={appHeader.wrap}>
+        <div className={appHeader.grid}>
           <div className={appHeader.left}>
             <nav className={appHeader.nav}>
               <HeaderLink icon={<BurgerIcon />} active>Конструктор</HeaderLink>
