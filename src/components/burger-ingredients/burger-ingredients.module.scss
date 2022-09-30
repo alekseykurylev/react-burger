@@ -13,8 +13,8 @@
 }
 
 .menu {
-  height: calc(100vh - 238px);
-  overflow-y: scroll;
+  max-height: calc(100vh - 238px);
+  overflow-y: auto;
   box-sizing: border-box;
   composes: scroll pt-10 from global;
 
