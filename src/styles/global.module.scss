@@ -1,0 +1,22 @@
+:global {
+  .container {
+    box-sizing: content-box;
+    margin: 0 auto;
+    padding: 0 30px;
+    max-width: 1240px;
+  }
+
+  .scroll {
+    scrollbar-color: #999 #333;
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #8585ad;
+    }
+    &::-webkit-scrollbar-track {
+      background: #2f2f37;
+    }
+  }
+}
