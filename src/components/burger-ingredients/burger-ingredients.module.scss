@@ -1,0 +1,25 @@
+.tab {
+  display: flex;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 32px;
+  composes: pt-6 pb-10 pl-4 pr-4 from global;
+}
+
+.menu {
+  height: calc(100vh - 238px);
+  overflow-y: scroll;
+  box-sizing: border-box;
+  composes: scroll pt-10 from global;
+
+  &::-webkit-scrollbar-track {
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+}
