@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import headerLink from "./header-link.module.scss";
 
 const HeaderLink = ({ children, icon, active }) => {
@@ -10,6 +11,12 @@ const HeaderLink = ({ children, icon, active }) => {
       {children}
     </a>
   );
+};
+
+HeaderLink.propTypes = {
+  children: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired,
+  active: PropTypes.bool,
 };
 
 export default HeaderLink;

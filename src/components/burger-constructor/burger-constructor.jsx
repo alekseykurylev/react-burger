@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { ingredientPropTypes } from "../../types/types";
 import {
   ConstructorElement,
   Button,
@@ -48,12 +50,16 @@ const BurgerConstructor = ({ data }) => {
         <p className="text text_type_digits-medium">
           610 <CurrencyIcon type="primary" />
         </p>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" htmlType="button">
           Оформить заказ
         </Button>
       </div>
     </section>
   );
+};
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default BurgerConstructor;

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { ingredientPropTypes } from "../../types/types";
 import { useState } from "react";
 import burgerIngredients from "./burger-ingredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -54,6 +56,10 @@ const BurgerIngredients = ({ data }) => {
       </div>
     </section>
   );
+};
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default BurgerIngredients;

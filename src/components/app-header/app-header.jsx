@@ -3,7 +3,7 @@ import {
   Logo,
   BurgerIcon,
   ListIcon,
-  ProfileIcon
+  ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderLink from "../ui/header-link/header-link";
 
@@ -14,7 +14,9 @@ const AppHeader = () => {
         <div className={appHeader.grid}>
           <div className={appHeader.left}>
             <nav className={appHeader.nav}>
-              <HeaderLink icon={<BurgerIcon />} active>Конструктор</HeaderLink>
+              <HeaderLink icon={<BurgerIcon />} active>
+                Конструктор
+              </HeaderLink>
               <HeaderLink icon={<ListIcon />}>Лента заказов</HeaderLink>
             </nav>
           </div>
