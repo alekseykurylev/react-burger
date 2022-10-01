@@ -1,0 +1,42 @@
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  composes: pl-4 from global;
+}
+
+.bun {
+  padding-left: 32px;
+  padding-right: 16px;
+}
+
+.dragList {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 464px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  composes: scroll pr-2 from global;
+}
+
+.dragItem {
+  display: flex;
+  align-items: center;
+
+  & > svg {
+    cursor: pointer;
+    margin-right: 8px;
+  }
+}
+
+.total {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  composes: mt-10 pr-4 from global;
+  gap: 40px;
+}

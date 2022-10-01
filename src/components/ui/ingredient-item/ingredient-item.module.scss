@@ -1,0 +1,18 @@
+.card {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+
+  svg {
+    margin-left: 8px;
+  }
+}
+
+.title {
+  min-height: 48px;
+}
