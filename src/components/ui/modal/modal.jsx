@@ -14,8 +14,13 @@ const Modal = ({ onClose, overlay = true, children }) => {
   };
 
   useEffect(() => {
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.touchAction = "none";
+    document.documentElement.style.paddingRight = "0px";
     document.addEventListener("keydown", closeOnEsc);
+
     return () => {
+      document.documentElement.removeAttribute("style");
       document.removeEventListener("keydown", closeOnEsc);
     };
   });
