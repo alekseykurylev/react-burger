@@ -1,13 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../../types/types";
+import { ingredientPropTypes } from "../../types/types";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientItem from "./ingredient-item.module.scss";
-import Modal from "../modal/modal";
-import ModalIngredient from "../modal-ingredient/modal-ingredient";
+import Modal from "../ui/modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const IngredientItem = ({ ingredient }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -33,7 +33,7 @@ const IngredientItem = ({ ingredient }) => {
           onClose={() => setOpenModal(false)}
           overlay="true"
         >
-          <ModalIngredient ingredient={ingredient} />
+          <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
     </>

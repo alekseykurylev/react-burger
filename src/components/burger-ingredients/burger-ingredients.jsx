@@ -3,7 +3,7 @@ import { ingredientPropTypes } from "../../types/types";
 import { useState } from "react";
 import burgerIngredients from "./burger-ingredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientItem from "../ui/ingredient-item/ingredient-item";
+import IngredientItem from "../ingredient-item/ingredient-item";
 
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = useState("bun");
