@@ -6,7 +6,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import modal from "./modal.module.scss";
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ isOpen, onClose, overlay = true, children }) => {
+const Modal = ({ onClose, overlay = true, children }) => {
   const closeOnEsc = (e) => {
     if (e.code === "Escape") {
       onClose();
@@ -20,7 +20,6 @@ const Modal = ({ isOpen, onClose, overlay = true, children }) => {
     };
   });
 
-  if (!isOpen) return null;
   return ReactDOM.createPortal(
     <div className={modal.modal}>
       {overlay && <ModalOverlay onCloseModal={onClose} />}
@@ -34,10 +33,9 @@ const Modal = ({ isOpen, onClose, overlay = true, children }) => {
 };
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   overlay: PropTypes.bool,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Modal;

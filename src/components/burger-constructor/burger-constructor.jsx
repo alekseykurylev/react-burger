@@ -68,11 +68,7 @@ const BurgerConstructor = ({ data }) => {
       </section>
 
       {openModal && (
-        <Modal
-          isOpen={openModal}
-          onClose={() => setOpenModal(false)}
-          overlay="true"
-        >
+        <Modal onClose={() => setOpenModal(false)}>
           <OrderDetails />
         </Modal>
       )}
