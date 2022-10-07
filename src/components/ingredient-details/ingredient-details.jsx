@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../../types/types";
 import ingredientDetails from "./ingredient-details.module.scss";
 

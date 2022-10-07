@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../../types/types";
 import {
   Counter,
