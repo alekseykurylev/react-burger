@@ -46,7 +46,7 @@ const BurgerConstructor = ({ data }) => {
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text="Краторная булка N-200i (верх)"
+              text="Краторная булка N-200i (низ)"
               price={200}
               thumbnail={"https://code.s3.yandex.net/react/code/bun-01.png"}
             />
