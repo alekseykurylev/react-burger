@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../../../types/types";
 import {
@@ -5,21 +6,37 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientItem from "./ingredient-item.module.scss";
+import Modal from "../modal/modal";
+import ModalIngredient from "../modal-ingredient/modal-ingredient";
 
 const IngredientItem = ({ ingredient }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
-    <div className={ingredientItem.card}>
-      <img src={ingredient.image} alt={ingredient.name} className="mb-1" />
-      <p
-        className={`text text_type_digits-default mb-1 ${ingredientItem.price}`}
-      >
-        {ingredient.price} <CurrencyIcon type="primary" />
-      </p>
-      <h3 className={`text text_type_main-default ${ingredientItem.title}`}>
-        {ingredient.name}
-      </h3>
-      <Counter count={1} size="default" />
-    </div>
+    <>
+      <div className={ingredientItem.card} onClick={() => setOpenModal(true)}>
+        <img src={ingredient.image} alt={ingredient.name} className="mb-1" />
+        <p
+          className={`text text_type_digits-default mb-1 ${ingredientItem.price}`}
+        >
+          {ingredient.price} <CurrencyIcon type="primary" />
+        </p>
+        <h3 className={`text text_type_main-default ${ingredientItem.title}`}>
+          {ingredient.name}
+        </h3>
+        <Counter count={1} size="default" />
+      </div>
+
+      {openModal && (
+        <Modal
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)}
+          overlay="true"
+        >
+          <ModalIngredient ingredient={ingredient} />
+        </Modal>
+      )}
+    </>
   );
 };
 
