@@ -28,11 +28,7 @@ const IngredientItem = ({ ingredient }) => {
       </div>
 
       {openModal && (
-        <Modal
-          isOpen={openModal}
-          onClose={() => setOpenModal(false)}
-          overlay="true"
-        >
+        <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
           <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}

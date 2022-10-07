@@ -1,14 +1,12 @@
-//import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import modalOverlay from "./modal-overlay.module.scss";
-//const modalRoot = document.getElementById("react-modals");
 
 const ModalOverlay = ({ onCloseModal }) => {
-  // return ReactDOM.createPortal(
-  //   <div className={modalOverlay.overlay} onClick={onCloseModal} />,
-  //   modalRoot
-  // );
-
   return <div className={modalOverlay.overlay} onClick={onCloseModal} />;
+};
+
+ModalOverlay.propTypes = {
+  onClose: PropTypes.func,
 };
 
 export default ModalOverlay;

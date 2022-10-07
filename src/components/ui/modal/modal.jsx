@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import Close from "../close/close";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import modal from "./modal.module.scss";
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ isOpen, onClose, overlay, children }) => {
+const Modal = ({ isOpen, onClose, overlay = true, children }) => {
   const closeOnEsc = (e) => {
     if (e.code === "Escape") {
       onClose();
@@ -17,7 +18,7 @@ const Modal = ({ isOpen, onClose, overlay, children }) => {
     return () => {
       document.removeEventListener("keydown", closeOnEsc);
     };
-  }, []);
+  });
 
   if (!isOpen) return null;
   return ReactDOM.createPortal(
@@ -30,6 +31,13 @@ const Modal = ({ isOpen, onClose, overlay, children }) => {
     </div>,
     modalRoot
   );
+};
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  overlay: PropTypes.bool,
+  children: PropTypes.element.isRequired,
 };
 
 export default Modal;

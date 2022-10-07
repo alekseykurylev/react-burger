@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { ingredientPropTypes } from "../../types/types";
 import ingredientDetails from "./ingredient-details.module.scss";
 
 const IngredientDetails = ({ ingredient }) => {
@@ -34,6 +36,10 @@ const IngredientDetails = ({ ingredient }) => {
       </ul>
     </div>
   );
+};
+
+IngredientDetails.propTypes = {
+  ingredient: PropTypes.shape({ ingredientPropTypes }).isRequired,
 };
 
 export default IngredientDetails;
