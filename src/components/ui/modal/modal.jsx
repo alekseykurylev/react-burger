@@ -7,23 +7,27 @@ import modal from "./modal.module.scss";
 const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({ onClose, overlay = true, children }) => {
-  const closeOnEsc = (e) => {
-    if (e.code === "Escape") {
-      onClose();
-    }
-  };
+  useEffect(() => {
+    const closeOnEsc = (e) => {
+      if (e.code === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", closeOnEsc);
+
+    return () => {
+      document.removeEventListener("keydown", closeOnEsc);
+    };
+  }, [onClose]);
 
   useEffect(() => {
     document.documentElement.style.overflow = "hidden";
     document.documentElement.style.touchAction = "none";
     document.documentElement.style.paddingRight = "0px";
-    document.addEventListener("keydown", closeOnEsc);
-
     return () => {
       document.documentElement.removeAttribute("style");
-      document.removeEventListener("keydown", closeOnEsc);
     };
-  });
+  }, []);
 
   return ReactDOM.createPortal(
     <div className={modal.modal}>
