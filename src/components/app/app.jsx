@@ -11,12 +11,19 @@ const App = () => {
 
   useEffect(() => {
     fetch(API_INGREDIENTS)
+      .then((res) => {
+        if (res.ok) {
+          return res;
+        }
+        throw new Error(`${res.status} — ${res.res}`);
+      })
       .then((res) => res.json())
       .then((obj) => {
         setIngredients(obj.data);
         setLoading(false);
       })
       .catch((e) => {
+        console.log(e);
         setLoading(false);
         setError(true);
       });
