@@ -11,8 +11,6 @@ const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = useState("bun");
   const [openModal, setOpenModal] = useState({ show: false, data: {} });
 
-  console.log(openModal);
-
   const categories = [
     {
       type: "bun",
