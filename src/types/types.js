@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
