@@ -1,0 +1,20 @@
+.button {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  padding: 0;
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.1s ease-in-out;
+  transition-property: opacity;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

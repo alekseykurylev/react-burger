@@ -35,7 +35,7 @@
 
 .total {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   composes: mt-10 pr-4 from global;
   gap: 40px;
