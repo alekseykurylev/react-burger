@@ -20,12 +20,13 @@ const App = () => {
       .then((res) => res.json())
       .then((obj) => {
         setIngredients(obj.data);
-        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
-        setLoading(false);
         setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
