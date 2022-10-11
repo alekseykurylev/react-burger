@@ -1,30 +1,43 @@
-import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../types/types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import burgerIngredients from "./burger-ingredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import Modal from "../ui/modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { IngredientsContext } from "../app/app";
+import { BurgerContext } from "../app/app";
 
-const BurgerIngredients = ({ data }) => {
+const categories = [
+  {
+    type: "bun",
+    name: "Булки",
+  },
+  {
+    type: "sauce",
+    name: "Соусы",
+  },
+  {
+    type: "main",
+    name: "Начинки",
+  },
+];
+
+const BurgerIngredients = () => {
+  const { ingredients } = useContext(IngredientsContext);
   const [current, setCurrent] = useState("bun");
   const [openModal, setOpenModal] = useState({ show: false, data: {} });
+  const { burger, setBurger } = useContext(BurgerContext);
 
-  const categories = [
-    {
-      type: "bun",
-      name: "Булки",
-    },
-    {
-      type: "sauce",
-      name: "Соусы",
-    },
-    {
-      type: "main",
-      name: "Начинки",
-    },
-  ];
+  const selectIngredient = (ingredient) => {
+    //setOpenModal({ show: true, data: ingredient }); отключил для проверки добавления и подсчета ингредиентов
+
+    if (ingredient.type === "bun") {
+      const noBun = burger.filter((item) => item.type !== "bun");
+      setBurger([...noBun, ingredient]);
+    } else {
+      setBurger([ingredient, ...burger]);
+    }
+  };
 
   return (
     <>
@@ -49,13 +62,13 @@ const BurgerIngredients = ({ data }) => {
                 {category.name}
               </h2>
               <ul className={burgerIngredients.list}>
-                {data
+                {ingredients
                   .filter((ingredient) => ingredient.type === category.type)
                   .map((ingredient) => (
                     <li key={ingredient._id}>
                       <IngredientItem
                         ingredient={ingredient}
-                        openModal={setOpenModal}
+                        onClick={() => selectIngredient(ingredient)}
                       />
                     </li>
                   ))}
@@ -72,10 +85,6 @@ const BurgerIngredients = ({ data }) => {
       )}
     </>
   );
-};
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default BurgerIngredients;

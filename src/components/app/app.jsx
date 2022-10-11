@@ -1,48 +1,39 @@
 import "../../styles/global.module.scss";
 import AppHeader from "../app-header/app-header";
 import Constructor from "../page/constructor/constructor";
-import { API_INGREDIENTS } from "../../utils/const";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { getIngredients } from "../../utils/api";
+
+export const IngredientsContext = createContext();
+export const BurgerContext = createContext();
 
 const App = () => {
   const [ingredients, setIngredients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [burger, setBurger] = useState([]);
 
   useEffect(() => {
-    fetch(API_INGREDIENTS)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error(`${res.status} — ${res.res}`);
-      })
-      .then((obj) => {
-        setIngredients(obj.data);
-      })
-      .catch((e) => {
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    getIngredients(setIngredients, setError, setLoading);
   }, []);
 
   return (
-    <>
-      <AppHeader />
-      <main>
-        {loading ? (
-          "Загрузка..."
-        ) : error ? (
-          "Ошибка сервера, зайдите позже"
-        ) : ingredients.length <= 0 ? (
-          "Извините, но у нас закончились продукты, зайдите позже."
-        ) : (
-          <Constructor data={ingredients} />
-        )}
-      </main>
-    </>
+    <IngredientsContext.Provider value={{ ingredients }}>
+      <BurgerContext.Provider value={{ burger, setBurger }}>
+        <AppHeader />
+        <main>
+          {loading ? (
+            "Загрузка..."
+          ) : error ? (
+            "Ошибка сервера, зайдите позже"
+          ) : ingredients.length <= 0 ? (
+            "Извините, но у нас закончились продукты, зайдите позже."
+          ) : (
+            <Constructor />
+          )}
+        </main>
+      </BurgerContext.Provider>
+    </IngredientsContext.Provider>
   );
 };
 
