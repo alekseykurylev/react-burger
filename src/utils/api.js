@@ -1,14 +1,10 @@
-const URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients";
-const URL_ORDERS = "https://norma.nomoreparties.space/api/orders";
+import { checkResponse } from "./services";
+
+const baseUrl = "https://norma.nomoreparties.space/api/";
 
 export const getIngredients = (setIngredients, setError, setLoading) => {
-  fetch(URL_INGREDIENTS)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error occurred!");
-      }
-      return res.json();
-    })
+  fetch(`${baseUrl}ingredients`)
+    .then(checkResponse)
     .then((data) => {
       setIngredients(data.data);
     })
@@ -22,19 +18,14 @@ export const getIngredients = (setIngredients, setError, setLoading) => {
 };
 
 export const getOrder = (burger, setOrder) => {
-  fetch(URL_ORDERS, {
+  fetch(`${baseUrl}orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(burger),
   })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Error occurred!");
-      }
-      return res.json();
-    })
+    .then(checkResponse)
     .then((order) => {
       setOrder(order);
     })
