@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 import {
   ConstructorElement,
   Button,
@@ -17,7 +17,10 @@ const BurgerConstructor = () => {
   const { burger, setBurger } = useContext(BurgerContext);
   const [order, setOrder] = useState(null);
 
-  const bun = burger.find((ingredient) => ingredient.type === "bun");
+  const bun = useMemo(
+    () => burger.find((ingredient) => ingredient.type === "bun"),
+    [burger]
+  );
 
   const removeIngredient = (key) => {
     const noRemote = burger.filter((_, index) => index !== key);
