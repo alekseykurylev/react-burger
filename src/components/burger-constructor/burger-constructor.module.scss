@@ -23,20 +23,18 @@
   composes: scroll pr-2 from global;
 }
 
-.dragItem {
-  display: flex;
-  align-items: center;
-
-  & > svg {
-    cursor: pointer;
-    margin-right: 8px;
-  }
-}
-
 .total {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   composes: mt-10 pr-4 from global;
   gap: 40px;
+}
+
+.emptyDrop {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

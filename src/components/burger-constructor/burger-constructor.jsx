@@ -1,61 +1,88 @@
-import { useState, useContext, useEffect, useMemo } from "react";
+import { useCallback, useState } from "react";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerConstructor from "./burger-constructor.module.scss";
 import Modal from "../ui/modal/modal";
-import OrderDetails from "../order-details/order-details";
-import { BurgerContext } from "../app/app";
+import OrderDetails from "../ui/order-details/order-details";
+import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
+import { burgerSlice } from "../../services/slices/burger";
 import { getOrder } from "../../utils/api";
+import { orderSlice } from "../../services/slices/order";
+import DragItem from "../ui/drag-item/drag-item";
 
 const BurgerConstructor = () => {
+  const { bun, filling } = useSelector((store) => store.burger);
+  const { order, orderRequest } = useSelector((store) => store.order);
   const [openModal, setOpenModal] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const { burger, setBurger } = useContext(BurgerContext);
-  const [order, setOrder] = useState(null);
+  const { addBun, addFilling, removeFilling, countTotalPrice, updateFilling } =
+    burgerSlice.actions;
+  const { clearOrder } = orderSlice.actions;
+  const { totalPrice } = useSelector((store) => store.burger);
+  const dispatch = useDispatch();
 
-  const bun = useMemo(
-    () => burger.find((ingredient) => ingredient.type === "bun"),
-    [burger]
-  );
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      if (item.type === "bun") {
+        dispatch(addBun(item));
+      } else {
+        dispatch(addFilling(item));
+      }
+      dispatch(countTotalPrice());
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
 
   const removeIngredient = (key) => {
-    const noRemote = burger.filter((_, index) => index !== key);
-    setBurger([...noRemote]);
+    dispatch(removeFilling(key));
+    dispatch(countTotalPrice());
   };
 
   const sendBurger = () => {
-    setOrder(null);
-    let id = { ingredients: [] };
-    burger.forEach((ingredient) => {
-      id = { ingredients: [...id.ingredients, ingredient._id] };
+    dispatch(clearOrder());
+
+    if (!bun) {
+      alert("Добавьте булок");
+      return;
+    } else if (filling.length <= 0) {
+      alert("Добавьте ингредиентов");
+      return;
+    }
+
+    const id = { ingredients: [bun._id] };
+    filling.forEach((item) => {
+      id.ingredients.push(item._id);
     });
-    getOrder(id, setOrder);
+
+    dispatch(getOrder(id));
     setOpenModal(true);
   };
 
-  useEffect(() => {
-    let total = 0;
-    burger
-      .filter((ingredient) => ingredient.type === "bun")
-      .map((ingredient) => (total += ingredient.price * 2));
-    burger
-      .filter((ingredient) => ingredient.type !== "bun")
-      .map((ingredient) => (total += ingredient.price));
-    setTotalPrice(total);
-  }, [burger]);
+  const moveElement = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = filling[dragIndex];
+      const newCards = [...filling];
+      newCards.splice(dragIndex, 1);
+      newCards.splice(hoverIndex, 0, dragCard);
+      dispatch(updateFilling(newCards));
+    },
+    [filling, dispatch, updateFilling]
+  );
 
   return (
     <>
-      <section className="pt-25">
-        {burger.length > 0 ? (
+      <section className="pt-25" ref={dropTarget}>
+        {bun || filling.length > 0 ? (
           <>
             <div className={burgerConstructor.burger}>
-              {bun && (
-                <div className={burgerConstructor.bun}>
+              <div className={burgerConstructor.bun}>
+                {bun && (
                   <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -63,27 +90,21 @@ const BurgerConstructor = () => {
                     price={bun.price}
                     thumbnail={bun.image}
                   />
-                </div>
-              )}
-
+                )}
+              </div>
               <ul className={burgerConstructor.dragList}>
-                {burger
-                  .filter((ingredient) => ingredient.type !== "bun")
-                  .map((ingredient, index) => (
-                    <li key={index} className={burgerConstructor.dragItem}>
-                      <DragIcon type="primary" />
-                      <ConstructorElement
-                        key={ingredient._id}
-                        text={ingredient.name}
-                        price={ingredient.price}
-                        thumbnail={ingredient.image}
-                        handleClose={() => removeIngredient(index)}
-                      />
-                    </li>
-                  ))}
+                {filling.map((item, index) => (
+                  <DragItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    removeIngredient={removeIngredient}
+                    moveElement={moveElement}
+                  />
+                ))}
               </ul>
-              {bun && (
-                <div className={burgerConstructor.bun}>
+              <div className={burgerConstructor.bun}>
+                {bun && (
                   <ConstructorElement
                     type="bottom"
                     isLocked={true}
@@ -91,8 +112,8 @@ const BurgerConstructor = () => {
                     price={bun.price}
                     thumbnail={bun.image}
                   />
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             <div className={burgerConstructor.total}>
@@ -104,17 +125,27 @@ const BurgerConstructor = () => {
                 size="large"
                 htmlType="button"
                 onClick={sendBurger}
+                disabled={orderRequest ? true : false}
               >
                 Оформить заказ
               </Button>
             </div>
           </>
         ) : (
-          <div>Добавьте ингредиенты...</div>
+          <div className={burgerConstructor.emptyDrop}>
+            <p
+              className={`text text_type_main-medium ${
+                !isHover && `text_color_inactive`
+              }`}
+            >
+              Переместите сюда
+              <br /> ингредиенты
+            </p>
+          </div>
         )}
       </section>
 
-      {openModal && order && (
+      {openModal && order.success && (
         <Modal onClose={() => setOpenModal(false)}>
           <OrderDetails order={order} />
         </Modal>
