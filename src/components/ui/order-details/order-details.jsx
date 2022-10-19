@@ -1,5 +1,5 @@
 import orderDetails from "./order-details.module.scss";
-import check from "../../images/done.png";
+import check from "../../../images/done.png";
 import PropTypes from "prop-types";
 
 const OrderDetails = ({ order }) => {

@@ -1,23 +1,16 @@
-import { checkResponse } from "./services";
-
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { checkResponse } from "./utils";
 const baseUrl = "https://norma.nomoreparties.space/api/";
 
-export const getIngredients = (setIngredients, setError, setLoading) => {
-  fetch(`${baseUrl}ingredients`)
-    .then(checkResponse)
-    .then((data) => {
-      setIngredients(data.data);
-    })
-    .catch((err) => {
-      setError(true);
-      console.error(err);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-};
+export const getIngredients = createAsyncThunk(
+  "ingredients/getIngredients",
+  async () =>
+    fetch(`${baseUrl}ingredients`)
+      .then(checkResponse)
+      .then((data) => data.data)
+);
 
-export const getOrder = (burger, setOrder) => {
+export const getOrder = createAsyncThunk("order/getOrder", async (burger) =>
   fetch(`${baseUrl}orders`, {
     method: "POST",
     headers: {
@@ -26,10 +19,5 @@ export const getOrder = (burger, setOrder) => {
     body: JSON.stringify(burger),
   })
     .then(checkResponse)
-    .then((order) => {
-      setOrder(order);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+    .then((data) => data)
+);
