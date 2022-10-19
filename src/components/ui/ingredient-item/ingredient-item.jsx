@@ -43,7 +43,7 @@ const IngredientItem = ({ ingredient, onClick }) => {
 
 IngredientItem.propTypes = {
   ingredient: ingredientPropTypes.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default IngredientItem;

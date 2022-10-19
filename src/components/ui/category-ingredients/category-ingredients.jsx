@@ -2,19 +2,13 @@ import { useSelector } from "react-redux";
 import styles from "./category-ingredients.module.scss";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import PropTypes from "prop-types";
+import { forwardRef } from "react";
 
-const CategoryIngredients = ({ openIngredient, refCategories }) => {
-  const { ingredients, categories, ingredientsFailed, ingredientsRequest } =
-    useSelector((store) => store.ingredients);
-
-  if (ingredientsRequest) {
-    return "Загрузка ингредиентов...";
-  } else if (ingredientsFailed) {
-    return "Ошибка сервера, зайдите позже.";
-  }
+const CategoryIngredients = forwardRef(({ openIngredient }, ref) => {
+  const { ingredients, categories } = useSelector((store) => store.ingredients);
 
   return (
-    <div className={styles.menu} ref={refCategories}>
+    <div className={styles.menu} ref={ref}>
       {categories.map((category) => (
         <div key={category.type} id={category.type}>
           <h2 className="text text_type_main-medium mb-6">{category.name}</h2>
@@ -34,11 +28,10 @@ const CategoryIngredients = ({ openIngredient, refCategories }) => {
       ))}
     </div>
   );
-};
+});
 
 CategoryIngredients.propTypes = {
   openIngredient: PropTypes.func.isRequired,
-  refCategories: PropTypes.any.isRequired,
 };
 
 export default CategoryIngredients;

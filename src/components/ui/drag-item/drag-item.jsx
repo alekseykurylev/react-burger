@@ -65,11 +65,11 @@ const DragItem = ({ item, index, removeIngredient, moveElement }) => {
     >
       <DragIcon type="primary" />
       <ConstructorElement
-        key={item._id}
+        key={item.dragId}
         text={item.name}
         price={item.price}
         thumbnail={item.image}
-        handleClose={() => removeIngredient(index)}
+        handleClose={() => removeIngredient(item.dragId)}
       />
     </li>
   );

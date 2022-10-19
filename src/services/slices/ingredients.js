@@ -43,10 +43,10 @@ export const ingredientsSlice = createSlice({
         state.ingredientsFailed = false;
         state.ingredients = action.payload;
       })
-      .addCase(getIngredients.rejected, (state) => {
+      .addCase(getIngredients.rejected, (state, action) => {
         state.ingredientsRequest = false;
         state.ingredientsFailed = true;
-        alert("Ошибка сервера, зайдите позже");
+        console.log(action.error.message);
       });
   },
 });

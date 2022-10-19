@@ -27,10 +27,10 @@ export const orderSlice = createSlice({
         state.orderFailed = false;
         state.order = action.payload;
       })
-      .addCase(getOrder.rejected, (state) => {
+      .addCase(getOrder.rejected, (state, action) => {
         state.orderRequest = false;
         state.orderFailed = true;
-        alert("Ошибка сервера, зайдите позже");
+        console.log(action.error.message);
       });
   },
 });

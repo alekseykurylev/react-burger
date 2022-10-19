@@ -18,8 +18,14 @@ const BurgerConstructor = () => {
   const { bun, filling } = useSelector((store) => store.burger);
   const { order, orderRequest } = useSelector((store) => store.order);
   const [openModal, setOpenModal] = useState(false);
-  const { addBun, addFilling, removeFilling, countTotalPrice, updateFilling } =
-    burgerSlice.actions;
+  const {
+    addBun,
+    addFilling,
+    removeFilling,
+    countTotalPrice,
+    updateFilling,
+    clearBurger,
+  } = burgerSlice.actions;
   const { clearOrder } = orderSlice.actions;
   const { totalPrice } = useSelector((store) => store.burger);
   const dispatch = useDispatch();
@@ -39,21 +45,13 @@ const BurgerConstructor = () => {
     }),
   });
 
-  const removeIngredient = (key) => {
-    dispatch(removeFilling(key));
+  const removeIngredient = (dragId) => {
+    dispatch(removeFilling(dragId));
     dispatch(countTotalPrice());
   };
 
   const sendBurger = () => {
     dispatch(clearOrder());
-
-    if (!bun) {
-      alert("Добавьте булок");
-      return;
-    } else if (filling.length <= 0) {
-      alert("Добавьте ингредиентов");
-      return;
-    }
 
     const id = { ingredients: [bun._id] };
     filling.forEach((item) => {
@@ -62,6 +60,11 @@ const BurgerConstructor = () => {
 
     dispatch(getOrder(id));
     setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    dispatch(clearBurger());
+    setOpenModal(false);
   };
 
   const moveElement = useCallback(
@@ -125,9 +128,9 @@ const BurgerConstructor = () => {
                 size="large"
                 htmlType="button"
                 onClick={sendBurger}
-                disabled={orderRequest ? true : false}
+                disabled={!bun || filling.length <= 0 ? true : false}
               >
-                Оформить заказ
+                {orderRequest ? "Оформляем..." : "Оформить заказ"}
               </Button>
             </div>
           </>
@@ -146,7 +149,7 @@ const BurgerConstructor = () => {
       </section>
 
       {openModal && order.success && (
-        <Modal onClose={() => setOpenModal(false)}>
+        <Modal onClose={closeModal}>
           <OrderDetails order={order} />
         </Modal>
       )}
