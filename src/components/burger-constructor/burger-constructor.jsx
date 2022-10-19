@@ -98,7 +98,7 @@ const BurgerConstructor = () => {
               <ul className={burgerConstructor.dragList}>
                 {filling.map((item, index) => (
                   <DragItem
-                    key={index}
+                    key={item.dragId}
                     item={item}
                     index={index}
                     removeIngredient={removeIngredient}

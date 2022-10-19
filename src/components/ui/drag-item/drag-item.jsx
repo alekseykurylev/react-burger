@@ -65,7 +65,7 @@ const DragItem = ({ item, index, removeIngredient, moveElement }) => {
     >
       <DragIcon type="primary" />
       <ConstructorElement
-        key={item.dragId}
+        key={item._id}
         text={item.name}
         price={item.price}
         thumbnail={item.image}
