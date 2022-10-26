@@ -1,22 +1,25 @@
 import PropTypes from "prop-types";
-import headerLink from "./header-link.module.scss";
+import styles from "./header-link.module.scss";
+import { NavLink } from "react-router-dom";
 
-const HeaderLink = ({ children, icon, active }) => {
+const HeaderLink = ({ children, icon, pathname }) => {
   return (
-    <a
-      className={`${headerLink.link} ${active ? headerLink.active : ""}`}
-      href="/"
+    <NavLink
+      to={{ pathname: pathname }}
+      className={styles.link}
+      activeClassName={styles.active}
+      exact
     >
       {icon}
       {children}
-    </a>
+    </NavLink>
   );
 };
 
 HeaderLink.propTypes = {
   children: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
-  active: PropTypes.bool,
+  pathname: PropTypes.string,
 };
 
 export default HeaderLink;

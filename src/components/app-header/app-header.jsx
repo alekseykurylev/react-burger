@@ -14,16 +14,20 @@ const AppHeader = () => {
         <div className={appHeader.grid}>
           <div className={appHeader.left}>
             <nav className={appHeader.nav}>
-              <HeaderLink icon={<BurgerIcon />} active>
+              <HeaderLink icon={<BurgerIcon />} pathname="/">
                 Конструктор
               </HeaderLink>
-              <HeaderLink icon={<ListIcon />}>Лента заказов</HeaderLink>
+              <HeaderLink icon={<ListIcon />} pathname="/order-feed">
+                Лента заказов
+              </HeaderLink>
             </nav>
           </div>
           <Logo />
           <div className={appHeader.right}>
             <nav className={appHeader.nav}>
-              <HeaderLink icon={<ProfileIcon />}>Личный кабинет</HeaderLink>
+              <HeaderLink icon={<ProfileIcon />} pathname="/login">
+                Личный кабинет
+              </HeaderLink>
             </nav>
           </div>
         </div>
