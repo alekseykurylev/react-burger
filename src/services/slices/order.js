@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getOrder } from "../../utils/api";
+import { getOrder } from "../../api";
 
 const initialState = {
   ingredientsId: {},

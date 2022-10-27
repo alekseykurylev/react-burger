@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getIngredients } from "../../utils/api";
+import { getIngredients } from "../../api";
 
 const initialState = {
   ingredients: [],
@@ -41,7 +41,7 @@ export const ingredientsSlice = createSlice({
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.ingredientsRequest = false;
         state.ingredientsFailed = false;
-        state.ingredients = action.payload;
+        state.ingredients = action.payload.data;
       })
       .addCase(getIngredients.rejected, (state, action) => {
         state.ingredientsRequest = false;

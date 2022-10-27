@@ -10,7 +10,7 @@ import OrderDetails from "../ui/order-details/order-details";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { burgerSlice } from "../../services/slices/burger";
-import { getOrder } from "../../utils/api";
+import { getOrder } from "../../api";
 import { orderSlice } from "../../services/slices/order";
 import DragItem from "../ui/drag-item/drag-item";
 
