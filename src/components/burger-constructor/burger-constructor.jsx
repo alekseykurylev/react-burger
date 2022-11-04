@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import {
   ConstructorElement,
   Button,
@@ -10,14 +10,16 @@ import OrderDetails from "../ui/order-details/order-details";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { burgerSlice } from "../../services/slices/burger";
-import { getOrder } from "../../api";
+import { getOrder } from "../../services/thunkActions/orders";
 import { orderSlice } from "../../services/slices/order";
 import DragItem from "../ui/drag-item/drag-item";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor = () => {
+  const navigate = useNavigate();
   const { bun, filling } = useSelector((store) => store.burger);
+  const { isLoggedIn } = useSelector((store) => store.auth);
   const { order, orderRequest } = useSelector((store) => store.order);
-  const [openModal, setOpenModal] = useState(false);
   const {
     addBun,
     addFilling,
@@ -51,20 +53,20 @@ const BurgerConstructor = () => {
   };
 
   const sendBurger = () => {
-    dispatch(clearOrder());
-
+    if (!isLoggedIn) {
+      return navigate("/login");
+    }
     const id = { ingredients: [bun._id] };
     filling.forEach((item) => {
       id.ingredients.push(item._id);
     });
 
     dispatch(getOrder(id));
-    setOpenModal(true);
   };
 
   const closeModal = () => {
     dispatch(clearBurger());
-    setOpenModal(false);
+    dispatch(clearOrder());
   };
 
   const moveElement = useCallback(
@@ -148,8 +150,8 @@ const BurgerConstructor = () => {
         )}
       </section>
 
-      {openModal && order.success && (
-        <Modal onClose={closeModal}>
+      {order && (
+        <Modal onClose={closeModal} className="order">
           <OrderDetails order={order} />
         </Modal>
       )}

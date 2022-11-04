@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getOrder } from "../../api";
+import { getOrder } from "../thunkActions/orders";
 
 const initialState = {
-  ingredientsId: {},
-  order: {},
+  order: null,
   orderRequest: false,
   orderFailed: false,
 };
@@ -13,8 +12,7 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     clearOrder(state) {
-      state.ingredientsId = {};
-      state.order = {};
+      state.order = null;
     },
   },
   extraReducers: (builder) => {

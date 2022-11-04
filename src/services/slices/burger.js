@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   bun: null,
@@ -15,10 +14,7 @@ export const burgerSlice = createSlice({
       state.bun = action.payload;
     },
     addFilling(state, action) {
-      state.filling = [
-        ...state.filling,
-        { ...action.payload, dragId: uuidv4() },
-      ];
+      state.filling = [...state.filling, { ...action.payload }];
     },
     removeFilling(state, action) {
       state.filling = state.filling.filter(

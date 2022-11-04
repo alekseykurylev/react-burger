@@ -9,6 +9,12 @@
   padding: 15px 15px;
   display: flex;
   align-items: center;
+
+  &.order {
+    .content {
+      padding: 120px 100px;
+    }
+  }
 }
 
 .content {
@@ -24,10 +30,26 @@
     0px 0px 1px rgba(0, 0, 0, 0.04);
   z-index: 100;
   transition: opacity 0.3s linear;
+  padding: 50px 40px 60px 40px;
 }
 
 .close {
   position: absolute;
   top: 60px;
   right: 40px;
+}
+
+.ingredient {
+  h3 {
+    align-self: flex-start;
+  }
+  section {
+    padding: 0;
+  }
+}
+
+.order {
+  section {
+    padding: 0;
+  }
 }

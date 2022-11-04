@@ -7,7 +7,9 @@ const PageWrapper = () => {
     <>
       <AppHeader />
       <main className={styles.main}>
-        <Outlet />
+        <div className={styles.container}>
+          <Outlet />
+        </div>
       </main>
     </>
   );

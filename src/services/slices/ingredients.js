@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getIngredients } from "../../api";
+import { getIngredients } from "../thunkActions/ingredients";
 
 const initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
-  ingredientDetails: {},
   categories: [
     {
       type: "bun",
@@ -30,7 +29,7 @@ export const ingredientsSlice = createSlice({
       state.ingredientDetails = action.payload;
     },
     removeDetails(state) {
-      state.ingredientDetails = {};
+      state.ingredientDetails = null;
     },
   },
   extraReducers: (builder) => {

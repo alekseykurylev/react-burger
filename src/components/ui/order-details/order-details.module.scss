@@ -1,5 +1,6 @@
-.body {
-  composes: pt-30 pb-30 pr-10 pl-10 from global;
+.section {
+  padding-top: 190px;
+  padding-bottom: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;

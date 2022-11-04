@@ -1,9 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import './index.scss'
 import { Provider } from 'react-redux';
 import { setupStore } from './services/reducers';
+import { BrowserRouter as Router } from "react-router-dom";
 
 const store = setupStore()
 
@@ -13,6 +13,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>
 );
