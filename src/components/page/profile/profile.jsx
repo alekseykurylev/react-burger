@@ -9,12 +9,11 @@ import { updateUser } from "../../../services/thunkActions/auth";
 
 const Profile = () => {
   const dispatch = useDispatch();
-
+  const [dirty, setDirty] = useState(false);
+  const refInputName = useRef();
   const { emailAuth, nameAuth, loadingAuth } = useSelector(
     (store) => store.auth
   );
-
-  const refInputName = useRef();
 
   const [form, setValue] = useState({
     name: {
@@ -39,9 +38,10 @@ const Profile = () => {
       ...form,
       [e.target.name]: { ...form[e.target.name], value: e.target.value },
     });
+    setDirty(true);
   };
 
-  const handleResetClick = useCallback(() => {
+  const handleResetForm = useCallback(() => {
     setValue({
       name: {
         value: nameAuth,
@@ -59,6 +59,7 @@ const Profile = () => {
         icon: "EditIcon",
       },
     });
+    setDirty(false);
   }, [nameAuth, emailAuth]);
 
   const handleIconClick = useCallback(
@@ -85,6 +86,7 @@ const Profile = () => {
           name: form.name.value,
         })
       );
+      setDirty(false);
     },
     [dispatch, form]
   );
@@ -122,15 +124,13 @@ const Profile = () => {
         onIconClick={() => handleIconClick("password")}
         disabled={form.password.disabled}
       />
-      {(form.name.value !== nameAuth ||
-        form.email.value !== emailAuth ||
-        form.password.value !== "") && (
+      {dirty && (
         <div className={styles.form__buttons}>
           <Button
             type="secondary"
             size="medium"
             htmlType="button"
-            onClick={handleResetClick}
+            onClick={handleResetForm}
           >
             Отмена
           </Button>

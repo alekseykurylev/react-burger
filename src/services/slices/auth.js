@@ -44,7 +44,6 @@ export const authSlice = createSlice({
         state.errorAuth = null;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        console.log(action);
         state.loadingAuth = false;
         state.isLoggedIn = true;
         state.emailAuth = action.payload.user.email;
