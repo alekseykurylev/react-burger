@@ -28,11 +28,15 @@ const ForgotPassword = () => {
     [dispatch, emailValue]
   );
 
-  return isLoggedIn ? (
-    <Navigate to="/" replace={true} />
-  ) : successEmail ? (
-    <Navigate to="/reset-password" replace={true} />
-  ) : (
+  if (isLoggedIn) {
+    return <Navigate to="/" replace={true} />;
+  }
+
+  if (successEmail) {
+    return <Navigate to="/reset-password" replace={true} />;
+  }
+
+  return (
     <section className={styles.section}>
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
 

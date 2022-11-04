@@ -10,23 +10,25 @@ const Constructor = () => {
     (store) => store.ingredients
   );
 
+  if (ingredientsRequest) {
+    return "Загрузка ингредиентов...";
+  }
+
+  if (ingredientsFailed) {
+    return "Ошибка сервера, зайдите позже.";
+  }
+
+  if (ingredients.length <= 0) {
+    return "Извините, но у нас закончились продукты, зайдите позже.";
+  }
+
   return (
-    <>
-      {ingredientsRequest ? (
-        "Загрузка ингредиентов..."
-      ) : ingredientsFailed ? (
-        "Ошибка сервера, зайдите позже."
-      ) : ingredients.length <= 0 ? (
-        "Извините, но у нас закончились продукты, зайдите позже."
-      ) : (
-        <div className={styles.grid}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </div>
-      )}
-    </>
+    <div className={styles.grid}>
+      <DndProvider backend={HTML5Backend}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </DndProvider>
+    </div>
   );
 };
 
