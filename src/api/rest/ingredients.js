@@ -1,8 +1,8 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { makeRequest } from "../make-request";
-import { baseUrl } from "../config";
+import config from "../config";
 
-export const getIngredients = createAsyncThunk(
-  "ingredients/getIngredients",
-  async () => makeRequest({ url: `${baseUrl}ingredients` })
-);
+export const ingredientsRequest = () => {
+  return makeRequest({
+    url: `${config.baseUrl}/ingredients`,
+  });
+};

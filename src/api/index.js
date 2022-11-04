@@ -1,4 +1,22 @@
-import { getIngredients } from "./rest/ingredients";
-import { getOrder } from "./rest/orders";
+import { ingredientsRequest } from "./rest/ingredients";
+import { ordersRequest } from "./rest/orders";
+import { checkEmailRequest, resetPasswordRequest } from "./rest/password-reset";
+import {
+  logoutRequest,
+  userRequest,
+  tokenRequest,
+  registerRequest,
+  loginRequest,
+} from "./rest/auth";
 
-export { getIngredients, getOrder };
+export {
+  ingredientsRequest,
+  ordersRequest,
+  checkEmailRequest,
+  resetPasswordRequest,
+  logoutRequest,
+  userRequest,
+  tokenRequest,
+  registerRequest,
+  loginRequest,
+};

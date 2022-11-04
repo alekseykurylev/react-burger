@@ -1,16 +1,23 @@
+import config from "./config";
+
 export const makeRequest = async ({
-  url = "/",
+  url,
   method = "GET",
   data,
-  headers,
+  headers = config.headers,
 }) => {
-  const response = await fetch(url, {
-    method: method,
-    body: JSON.stringify(data),
-    headers: headers,
-  });
-  if (!response.ok) {
-    throw new Error("Error occurred!");
+  if (headers && headers.authorization) {
+    headers.authorization = localStorage.getItem("accessToken");
   }
-  return await response.json();
+
+  try {
+    const response = await fetch(url, {
+      method: method,
+      body: JSON.stringify(data),
+      headers: headers,
+    });
+    return await config.checkResponse(response);
+  } catch (error) {
+    throw error;
+  }
 };
