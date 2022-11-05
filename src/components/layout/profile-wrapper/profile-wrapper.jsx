@@ -1,7 +1,6 @@
 import styles from "./profile-wrapper.module.scss";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getCookie } from "../../../utils/utils";
 import { logout } from "../../../services/thunkActions/auth";
 import { useCallback } from "react";
 import { getRefreshToken } from "../../../utils/utils";
