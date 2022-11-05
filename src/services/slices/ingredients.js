@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getIngredients } from "../../utils/api";
+import { getIngredients } from "../thunkActions/ingredients";
 
 const initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
-  ingredientDetails: {},
   categories: [
     {
       type: "bun",
@@ -30,7 +29,7 @@ export const ingredientsSlice = createSlice({
       state.ingredientDetails = action.payload;
     },
     removeDetails(state) {
-      state.ingredientDetails = {};
+      state.ingredientDetails = null;
     },
   },
   extraReducers: (builder) => {
@@ -41,7 +40,7 @@ export const ingredientsSlice = createSlice({
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.ingredientsRequest = false;
         state.ingredientsFailed = false;
-        state.ingredients = action.payload;
+        state.ingredients = action.payload.data;
       })
       .addCase(getIngredients.rejected, (state, action) => {
         state.ingredientsRequest = false;

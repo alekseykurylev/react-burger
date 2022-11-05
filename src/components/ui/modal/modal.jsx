@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import Close from "../close/close";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import modal from "./modal.module.scss";
+import styles from "./modal.module.scss";
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ onClose, overlay = true, children }) => {
+const Modal = ({ onClose, children, className }) => {
   useEffect(() => {
     const closeOnEsc = (e) => {
       if (e.code === "Escape") {
@@ -30,10 +30,14 @@ const Modal = ({ onClose, overlay = true, children }) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <div className={modal.modal}>
-      {overlay && <ModalOverlay onCloseModal={onClose} />}
-      <div className={modal.content}>
-        <Close onClose={onClose} className={modal.close} />
+    <div
+      className={
+        className ? `${styles.modal} ${styles[className]}` : styles.modal
+      }
+    >
+      <ModalOverlay onCloseModal={onClose} />
+      <div className={styles.content}>
+        <Close onClose={onClose} className={styles.close} />
         {children}
       </div>
     </div>,
@@ -43,8 +47,8 @@ const Modal = ({ onClose, overlay = true, children }) => {
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  overlay: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default Modal;

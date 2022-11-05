@@ -1,49 +1,59 @@
-import { useEffect, useState } from "react";
-import Modal from "../ui/modal/modal";
-import IngredientDetails from "../ui/ingredient-details/ingredient-details";
-import { ingredientsSlice } from "../../services/slices/ingredients";
-import { useDispatch } from "react-redux";
-import { getIngredients } from "../../utils/api";
-import TabIngredients from "../ui/tab-ingredients/tab-ingredients";
+import styles from "./burger-ingredients.module.scss";
 import { useSelector } from "react-redux";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useRef, useState, useEffect } from "react";
+import CategoryIngredients from "../ui/category-ingredients/category-ingredients";
 
 const BurgerIngredients = () => {
-  const { ingredients, ingredientsFailed, ingredientsRequest } = useSelector(
-    (store) => store.ingredients
-  );
-  const { addDetails, removeDetails } = ingredientsSlice.actions;
-  const [openModal, setOpenModal] = useState(false);
-  const dispatch = useDispatch();
+  const { categories } = useSelector((store) => store.ingredients);
+  const [currentCategory, setCurrentCategory] = useState("bun");
+  const ref = useRef();
 
   useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+    const rootScroll = ref.current;
+    const categoriesScroll = ref.current.childNodes;
 
-  const openIngredient = (ingredient) => {
-    dispatch(removeDetails());
-    dispatch(addDetails(ingredient));
-    setOpenModal(true);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting || entry.intersectionRatio === 1) {
+            setCurrentCategory(entry.target.id);
+          }
+        });
+      },
+      {
+        root: rootScroll,
+        rootMargin: "0px 0px -90% 0px",
+      }
+    );
+
+    categoriesScroll.forEach((item) => {
+      observer.observe(item);
+    });
+  }, []);
+
+  const scrollToCategory = (type) => {
+    setCurrentCategory(type);
+    const targetCategory = ref.current.children[type];
+    targetCategory.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section className="pt-10">
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
-      {ingredientsRequest ? (
-        "Загрузка ингредиентов..."
-      ) : ingredientsFailed ? (
-        "Ошибка сервера, зайдите позже"
-      ) : ingredients.length <= 0 ? (
-        "Извините, но у нас закончились продукты, зайдите позже."
-      ) : (
-        <>
-          <TabIngredients openIngredient={openIngredient} />
-          {openModal && (
-            <Modal onClose={() => setOpenModal(false)}>
-              <IngredientDetails />
-            </Modal>
-          )}
-        </>
-      )}
+      <div className={styles.tab}>
+        {categories.map((category) => (
+          <Tab
+            key={category.type}
+            value={category.type}
+            active={currentCategory === category.type}
+            onClick={() => scrollToCategory(category.type)}
+          >
+            {category.name}
+          </Tab>
+        ))}
+      </div>
+      <CategoryIngredients ref={ref} />
     </section>
   );
 };

@@ -1,0 +1,33 @@
+.grid {
+  display: grid;
+  grid-template-columns: 320px max-content;
+  gap: 60px;
+  composes: pt-30 pb-30 from global;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  height: 64px;
+  composes: text text_type_main-medium text_color_inactive from global;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+button.link {
+  background-color: transparent;
+  border: 0;
+}
+
+.active {
+  color: #fff;
+}
