@@ -6,7 +6,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../../services/thunkActions/auth";
 
@@ -17,9 +17,7 @@ const Register = () => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  const { loadingAuth, errorAuth, isLoggedIn } = useSelector(
-    (store) => store.auth
-  );
+  const { loadingAuth, errorAuth } = useSelector((store) => store.auth);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -34,10 +32,6 @@ const Register = () => {
     },
     [dispatch, form]
   );
-
-  if (isLoggedIn) {
-    <Navigate to="/" replace={true} />;
-  }
 
   return (
     <section className={styles.section}>

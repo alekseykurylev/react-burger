@@ -4,14 +4,15 @@ import { useDispatch } from "react-redux";
 import { getCookie } from "../../../utils/utils";
 import { logout } from "../../../services/thunkActions/auth";
 import { useCallback } from "react";
+import { getRefreshToken } from "../../../utils/utils";
 
 const ProfileWrapper = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
   const handleLogout = useCallback(() => {
-    const cookie = getCookie("refreshToken");
-    dispatch(logout({ token: cookie }));
+    const refreshToken = getRefreshToken();
+    dispatch(logout({ token: refreshToken }));
   }, [dispatch]);
 
   const getStyleForNavLink = ({ isActive }) =>

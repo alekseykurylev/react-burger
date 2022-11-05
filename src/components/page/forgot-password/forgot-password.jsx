@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((store) => store.auth);
   const [emailValue, setEmailValue] = useState("");
   const onChange = (e) => {
     setEmailValue(e.target.value);
@@ -27,10 +26,6 @@ const ForgotPassword = () => {
     },
     [dispatch, emailValue]
   );
-
-  if (isLoggedIn) {
-    return <Navigate to="/" replace={true} />;
-  }
 
   if (successEmail) {
     return <Navigate to="/reset-password" replace={true} />;

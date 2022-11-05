@@ -11,7 +11,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [dirty, setDirty] = useState(false);
   const refInputName = useRef();
-  const { emailAuth, nameAuth, loadingAuth } = useSelector(
+  const { emailAuth, nameAuth, loadingAuth, isLoggedIn } = useSelector(
     (store) => store.auth
   );
 

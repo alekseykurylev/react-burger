@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import IngredientDetails from "../ui/ingredient-details/ingredient-details";
 import Modal from "../ui/modal/modal";
 import { getIngredients } from "../../services/thunkActions/ingredients";
+import LoginRoute from "../login-route";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -46,10 +47,12 @@ const App = () => {
             </Route>
           </Route>
 
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="reset-password" element={<ResetPassword />} />
+          <Route element={<LoginRoute />}>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+          </Route>
 
           <Route path="*" element={<NotFound404 />} />
         </Route>
