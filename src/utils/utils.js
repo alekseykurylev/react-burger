@@ -11,6 +11,9 @@ export const getCookie = (name) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
+export const getAccessToken = () => localStorage.getItem("accessToken");
+export const getRefreshToken = () => getCookie("refreshToken");
+
 export const setCookie = (name, value, props) => {
   props = props || {};
   let exp = props.expires;
