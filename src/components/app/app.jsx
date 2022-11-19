@@ -11,15 +11,15 @@ import PageWrapper from "../layout/page-wrapper/page-wrapper";
 import Orders from "../page/orders/orders";
 import ProfileWrapper from "../layout/profile-wrapper/profile-wrapper";
 import ProtectedRoute from "../protected-route";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import IngredientDetails from "../ui/ingredient-details/ingredient-details";
 import Modal from "../ui/modal/modal";
-import { getIngredients } from "../../services/thunkActions/ingredients";
+import { getIngredients } from "../../redux/thunkActions/ingredients";
 import LoginRoute from "../login-route";
+import { useAppDispatch } from "../../redux/hooks";
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());

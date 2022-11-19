@@ -6,20 +6,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { resetPassword } from "../../../services/thunkActions/password-reset";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { resetPassword } from "../../../redux/thunkActions/password-reset";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import selectPasswordReset from "../../../redux/selectors/password-reset";
 
 const ResetPassword = () => {
-  const dispatch = useDispatch();
+  const { successEmail, successPassword, requestPasswordReset } =
+    useAppSelector(selectPasswordReset);
+  const dispatch = useAppDispatch();
   const [form, setValue] = useState({ password: "", token: "" });
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-
-  const { successEmail, successPassword, requestPasswordReset } = useSelector(
-    (store) => store.passwordReset
-  );
 
   const handleSubmit = useCallback(
     (e) => {

@@ -3,12 +3,12 @@ import BurgerIngredients from "../../burger-ingredients/burger-ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "./constructor.module.scss";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../redux/hooks";
+import selectIngredients from "../../../redux/selectors/ingredients";
 
 const Constructor = () => {
-  const { ingredients, ingredientsFailed, ingredientsRequest } = useSelector(
-    (store) => store.ingredients
-  );
+  const { ingredients, ingredientsFailed, ingredientsRequest } =
+    useAppSelector(selectIngredients);
 
   if (ingredientsRequest) {
     return "Загрузка ингредиентов...";

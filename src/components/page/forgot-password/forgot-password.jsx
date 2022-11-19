@@ -5,19 +5,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { checkEmail } from "../../../services/thunkActions/password-reset";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { checkEmail } from "../../../redux/thunkActions/password-reset";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import selectPasswordReset from "../../../redux/selectors/password-reset";
 
 const ForgotPassword = () => {
-  const dispatch = useDispatch();
+  const { successEmail, requestPasswordReset } =
+    useAppSelector(selectPasswordReset);
+  const dispatch = useAppDispatch();
   const [emailValue, setEmailValue] = useState("");
   const onChange = (e) => {
     setEmailValue(e.target.value);
   };
-  const { successEmail, requestPasswordReset } = useSelector(
-    (store) => store.passwordReset
-  );
 
   const handleSubmit = useCallback(
     (e) => {

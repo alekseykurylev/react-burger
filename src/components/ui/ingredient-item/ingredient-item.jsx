@@ -5,16 +5,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-item.module.scss";
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { ingredientsSlice } from "../../../services/slices/ingredients";
+import { useAppSelector } from "../../../redux/hooks";
+import selectBurger from "../../../redux/selectors/burger";
 
 const IngredientItem = ({ ingredient }) => {
-  const { bun, filling } = useSelector((store) => store.burger);
-  const { addDetails } = ingredientsSlice.actions;
-  const dispatch = useDispatch();
+  const { bun, filling } = useAppSelector(selectBurger);
   const location = useLocation();
 
   const count = useMemo(() => {
@@ -30,10 +28,6 @@ const IngredientItem = ({ ingredient }) => {
     item: { ...ingredient, dragId: uuidv4() },
   });
 
-  const handleClick = () => {
-    dispatch(addDetails(ingredient));
-  };
-
   return (
     <Link
       key={ingredient._id}
@@ -42,7 +36,6 @@ const IngredientItem = ({ ingredient }) => {
       }}
       state={{ background: location }}
       className={styles.card}
-      onClick={handleClick}
       ref={dragRef}
     >
       <img src={ingredient.image} alt={ingredient.name} className="mb-1" />

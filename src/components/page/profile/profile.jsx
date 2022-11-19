@@ -4,16 +4,15 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../../services/thunkActions/auth";
+import { updateUser } from "../../../redux/thunkActions/auth";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import selectAuth from "../../../redux/selectors/auth";
 
 const Profile = () => {
-  const dispatch = useDispatch();
+  const { emailAuth, nameAuth, loadingAuth } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
   const [dirty, setDirty] = useState(false);
   const refInputName = useRef();
-  const { emailAuth, nameAuth, loadingAuth, isLoggedIn } = useSelector(
-    (store) => store.auth
-  );
 
   const [form, setValue] = useState({
     name: {

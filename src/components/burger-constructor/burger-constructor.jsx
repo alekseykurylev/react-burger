@@ -7,30 +7,30 @@ import {
 import burgerConstructor from "./burger-constructor.module.scss";
 import Modal from "../ui/modal/modal";
 import OrderDetails from "../ui/order-details/order-details";
-import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
-import { burgerSlice } from "../../services/slices/burger";
-import { getOrder } from "../../services/thunkActions/orders";
-import { orderSlice } from "../../services/slices/order";
+import { getOrder } from "../../redux/thunkActions/orders";
 import DragItem from "../ui/drag-item/drag-item";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import selectBurger from "../../redux/selectors/burger";
+import selectAuth from "../../redux/selectors/auth";
+import selectOrder from "../../redux/selectors/order";
+import {
+  addBun,
+  addFilling,
+  removeFilling,
+  countTotalPrice,
+  updateFilling,
+  clearBurger,
+} from "../../redux/slices/burger";
+import { clearOrder } from "../../redux/slices/order";
 
 const BurgerConstructor = () => {
+  const { bun, filling, totalPrice } = useAppSelector(selectBurger);
+  const { isLoggedIn } = useAppSelector(selectAuth);
+  const { order, orderRequest } = useAppSelector(selectOrder);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { bun, filling } = useSelector((store) => store.burger);
-  const { isLoggedIn } = useSelector((store) => store.auth);
-  const { order, orderRequest } = useSelector((store) => store.order);
-  const {
-    addBun,
-    addFilling,
-    removeFilling,
-    countTotalPrice,
-    updateFilling,
-    clearBurger,
-  } = burgerSlice.actions;
-  const { clearOrder } = orderSlice.actions;
-  const { totalPrice } = useSelector((store) => store.burger);
-  const dispatch = useDispatch();
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
@@ -77,7 +77,7 @@ const BurgerConstructor = () => {
       newCards.splice(hoverIndex, 0, dragCard);
       dispatch(updateFilling(newCards));
     },
-    [filling, dispatch, updateFilling]
+    [filling, dispatch]
   );
 
   return (

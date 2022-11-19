@@ -6,13 +6,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../../services/thunkActions/auth";
+import { login } from "../../../redux/thunkActions/auth";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import selectAuth from "../../../redux/selectors/auth";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const { loadingAuth, isLoggedIn } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
   const [form, setValue] = useState({ email: "", password: "" });
-  const { loadingAuth, isLoggedIn } = useSelector((store) => store.auth);
 
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });

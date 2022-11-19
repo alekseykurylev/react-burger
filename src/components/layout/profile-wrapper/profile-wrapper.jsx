@@ -1,13 +1,13 @@
 import styles from "./profile-wrapper.module.scss";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../services/thunkActions/auth";
+import { logout } from "../../../redux/thunkActions/auth";
 import { useCallback } from "react";
 import { getRefreshToken } from "../../../utils/utils";
+import { useAppDispatch } from "../../../redux/hooks";
 
 const ProfileWrapper = () => {
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogout = useCallback(() => {
     const refreshToken = getRefreshToken();

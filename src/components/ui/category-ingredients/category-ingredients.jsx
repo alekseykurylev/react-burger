@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux";
 import styles from "./category-ingredients.module.scss";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import { forwardRef } from "react";
+import { useAppSelector } from "../../../redux/hooks";
+import selectIngredients from "../../../redux/selectors/ingredients";
 
 const CategoryIngredients = forwardRef((_, ref) => {
-  const { ingredients, categories } = useSelector((store) => store.ingredients);
+  const { ingredients, categories } = useAppSelector(selectIngredients);
 
   return (
     <div className={styles.menu} ref={ref}>

@@ -37,4 +37,12 @@ export const burgerSlice = createSlice({
   },
 });
 
+export const {
+  addBun,
+  addFilling,
+  removeFilling,
+  clearBurger,
+  updateFilling,
+  countTotalPrice,
+} = burgerSlice.actions;
 export default burgerSlice.reducer;

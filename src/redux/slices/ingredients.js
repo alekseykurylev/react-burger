@@ -24,14 +24,7 @@ const initialState = {
 export const ingredientsSlice = createSlice({
   name: "ingredients",
   initialState,
-  reducers: {
-    addDetails(state, action) {
-      state.ingredientDetails = action.payload;
-    },
-    removeDetails(state) {
-      state.ingredientDetails = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getIngredients.pending, (state) => {

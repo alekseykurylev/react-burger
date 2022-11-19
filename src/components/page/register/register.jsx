@@ -7,17 +7,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../../services/thunkActions/auth";
+import { register } from "../../../redux/thunkActions/auth";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import selectAuth from "../../../redux/selectors/auth";
 
 const Register = () => {
-  const dispatch = useDispatch();
+  const { loadingAuth, errorAuth } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
   const [form, setValue] = useState({ name: "", email: "", password: "" });
   const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-
-  const { loadingAuth, errorAuth } = useSelector((store) => store.auth);
 
   const handleSubmit = useCallback(
     (e) => {

@@ -1,11 +1,11 @@
 import styles from "./ingredient-details.module.scss";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../../redux/hooks";
+import selectIngredients from "../../../redux/selectors/ingredients";
 
 const IngredientDetails = () => {
-  const { ingredients, ingredientsFailed, ingredientsRequest } = useSelector(
-    (store) => store.ingredients
-  );
+  const { ingredients, ingredientsFailed, ingredientsRequest } =
+    useAppSelector(selectIngredients);
   const params = useParams();
 
   const ingredient = ingredients.find(
