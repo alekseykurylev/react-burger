@@ -33,10 +33,9 @@ const BurgerIngredients = () => {
     });
   }, []);
 
-  const scrollToCategory = (type: any) => {
+  const scrollToCategory = (type: string) => {
     setCurrentCategory(type);
-    console.log(ref.current?.children);
-    const targetCategory = ref.current?.children[type] as HTMLElement;
+    const targetCategory = ref.current?.children[type as any] as HTMLElement;
     targetCategory.scrollIntoView({ behavior: "smooth" });
   };
 

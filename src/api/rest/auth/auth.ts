@@ -26,10 +26,7 @@ export const registerRequest = <T>(data: T) => {
 export const getUserRequest = () => {
   return makeRequest<IUserResponse>({
     url: `${config.baseUrl}/auth/user`,
-    headers: {
-      ...config.headers,
-      authorization: true,
-    },
+    authorization: true,
   });
 };
 
@@ -38,10 +35,7 @@ export const updateUserRequest = <T>(method: string, data: T) => {
     url: `${config.baseUrl}/auth/user`,
     method: method,
     data: data,
-    headers: {
-      ...config.headers,
-      authorization: true,
-    },
+    authorization: true,
   });
 };
 

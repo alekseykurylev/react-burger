@@ -1,27 +1,32 @@
 import config from "./config";
 
 interface IMakeRequest {
-  method?: string;
   url: string;
+  method?: string;
+  headers?: HeadersInit;
   data?: unknown;
-  headers?: any;
+  authorization?: boolean;
 }
 
 export const makeRequest = async <T>({
   url,
   method = "GET",
-  data,
   headers = config.headers,
+  data,
+  authorization = false,
 }: IMakeRequest): Promise<T> => {
-  if (headers && headers.authorization) {
-    headers.authorization = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
+
+  if (authorization && token) {
+    headers = {} as { [key: string]: string };
+    headers.authorization = token;
   }
 
   try {
     const response = await fetch(url, {
       method: method,
       body: JSON.stringify(data),
-      headers: headers,
+      headers,
     });
     return await config.checkResponse(response);
   } catch (error) {
