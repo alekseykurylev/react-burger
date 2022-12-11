@@ -1,18 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 import {
   checkEmail,
   resetPassword,
-} from "../thunkActions/password-reset/password-reset";
+} from "../syncs/password-reset/password-reset";
 
-interface IInitialState {
+type PasswordState = {
   requestPasswordReset: boolean;
   failedPasswordReset: boolean;
   successEmail: boolean;
   successPassword: boolean;
   messagePasswordReset: string | null;
-}
+};
 
-const initialState: IInitialState = {
+const initialState: PasswordState = {
   requestPasswordReset: false,
   failedPasswordReset: false,
   successEmail: false,
@@ -59,3 +60,4 @@ export const passwordResetSlice = createSlice({
 });
 
 export default passwordResetSlice.reducer;
+export const selectPasswordReset = (state: RootState) => state.passwordReset;

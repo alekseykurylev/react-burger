@@ -1,16 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
-import selectAuth from "../redux/selectors/auth";
+import { selectUser } from "../redux/slices/user";
 
 const ProtectedRoute = () => {
-  const { isLoggedIn, loadingAuth } = useAppSelector(selectAuth);
+  const { isLoggedIn, isLoading } = useAppSelector(selectUser);
 
-  if(loadingAuth) {
-    return <div>Загрузка...</div>
+  if (isLoading) {
+    return <div>Загрузка...</div>;
   }
 
-  if(!isLoggedIn) {
-    return <Navigate to="/login" replace={true} />
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace={true} />;
   }
 
   return <Outlet />;

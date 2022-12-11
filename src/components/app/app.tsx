@@ -8,26 +8,25 @@ import ResetPassword from "../page/reset-password/reset-password";
 import Profile from "../page/profile/profile";
 import NotFound404 from "../page/not-found/not-found";
 import PageWrapper from "../layout/page-wrapper/page-wrapper";
-import Orders from "../page/orders/orders";
-import ProfileWrapper from "../layout/profile-wrapper/profile-wrapper";
+import Orders from "../page/profile-orders/profile-orders";
 import ProtectedRoute from "../protected-route";
 import { useEffect } from "react";
 import IngredientDetails from "../ui/ingredient-details/ingredient-details";
 import Modal from "../ui/modal/modal";
-import { getIngredients } from "../../redux/thunkActions/ingredients/ingredients";
 import LoginRoute from "../login-route";
 import { useAppDispatch } from "../../redux/hooks";
 import { useAuth } from "../../utils/hooks/useAuth";
-import { getUser } from "../../redux/thunkActions/auth/auth";
-
+import { getUser } from "../../redux/syncs/auth/auth";
+import Feed from "../page/feed/feed";
+import AppHeader from "../layout/header/header";
+import Preloader from "../ui/preloader/preloader";
+import FeedDetails from "../ui/feed-details/feed-details";
+import { useGetIngredientsQuery } from "../../redux/api/ingredientsApi";
 
 const App = () => {
+  const { isLoading, error } = useGetIngredientsQuery("");
   const { isTokens } = useAuth();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   useEffect(() => {
     if (isTokens) {
@@ -43,18 +42,24 @@ const App = () => {
     navigate(-1);
   };
 
+  if (isLoading) return <Preloader />;
+  if (error) return <div>Ошибка сервера, зайдите позже.</div>;
+
   return (
     <>
+      <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<PageWrapper />}>
           <Route index element={<Constructor />} />
           <Route path="ingredients/:id" element={<IngredientDetails />} />
 
+          <Route path="feed" element={<Feed />} />
+          <Route path="feed/:id" element={<FeedDetails />} />
+
           <Route element={<ProtectedRoute />}>
-            <Route path="profile/" element={<ProfileWrapper />}>
-              <Route index element={<Profile />} />
-              <Route path="orders" element={<Orders />} />
-            </Route>
+            <Route path="profile" element={<Profile />} />
+            <Route path="profile/orders" element={<Orders />} />
+            <Route path="profile/orders/:id" element={<FeedDetails />} />
           </Route>
 
           <Route element={<LoginRoute />}>
@@ -75,6 +80,22 @@ const App = () => {
             element={
               <Modal onClose={handleModalClose} className="ingredient">
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="feed/:id"
+            element={
+              <Modal onClose={handleModalClose} className="feed">
+                <FeedDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="profile/orders/:id"
+            element={
+              <Modal onClose={handleModalClose} className="feed">
+                <FeedDetails />
               </Modal>
             }
           />

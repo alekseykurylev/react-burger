@@ -1,5 +1,5 @@
 import styles from "./register.module.scss";
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent } from "react";
 import {
   EmailInput,
   PasswordInput,
@@ -8,12 +8,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { register } from "../../../redux/thunkActions/auth/auth";
+import { registerUser } from "../../../redux/syncs/auth/auth";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import selectAuth from "../../../redux/selectors/auth";
+import { selectUser } from "../../../redux/slices/user";
 
 const Register = () => {
-  const { loadingAuth, errorAuth } = useAppSelector(selectAuth);
+  const { isLoading, error } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [form, setValue] = useState({ name: "", email: "", password: "" });
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +24,7 @@ const Register = () => {
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(
-        register({
+        registerUser({
           email: form.email,
           name: form.name,
           password: form.password,
@@ -37,7 +37,7 @@ const Register = () => {
   return (
     <section className={styles.section}>
       <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
-      {errorAuth === "User already exists" && (
+      {error === "User already exists" && (
         <div className="text text_type_main-default mb-4">
           Email: {form.email} уже зарегистрирован в системе.
         </div>
@@ -64,12 +64,8 @@ const Register = () => {
           name={"password"}
           required
         />
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-        >
-          {loadingAuth ? "Регистрация..." : "Зарегистрироваться"}
+        <Button htmlType="submit" type="primary" size="medium">
+          {isLoading ? "Регистрация..." : "Зарегистрироваться"}
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">

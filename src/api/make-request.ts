@@ -18,8 +18,7 @@ export const makeRequest = async <T>({
   const token = localStorage.getItem("accessToken");
 
   if (authorization && token) {
-    headers = {} as { [key: string]: string };
-    headers.authorization = token;
+    headers = { ...headers, authorization: token };
   }
 
   try {
@@ -28,7 +27,12 @@ export const makeRequest = async <T>({
       body: JSON.stringify(data),
       headers,
     });
-    return await config.checkResponse(response);
+
+    if (!response.ok) {
+      throw await response.json();
+    }
+
+    return response.json();
   } catch (error) {
     throw error;
   }

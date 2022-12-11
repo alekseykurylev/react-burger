@@ -1,0 +1,14 @@
+.orders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-right: 16px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-height: calc(100vh - 185px);
+  composes: scroll pt-10 from global;
+
+  &::-webkit-scrollbar-track {
+    margin-bottom: 50px;
+  }
+}

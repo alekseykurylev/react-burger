@@ -25,7 +25,6 @@ const DragItem = ({ item, index, removeIngredient, moveElement }: IProps) => {
       };
     },
     hover(item: any, monitor: DropTargetMonitor) {
-      console.log(item);
       if (!ref.current) {
         return;
       }

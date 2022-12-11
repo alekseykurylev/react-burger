@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Close from "../close/close";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from "./modal.module.scss";
-const modalRoot = document.getElementById("react-modals") as HTMLDivElement;
+const portal = document.getElementById("react-portal") as HTMLDivElement;
 
 interface IProps {
   onClose: () => any;
@@ -46,9 +46,8 @@ const Modal: FC<IProps> = ({ onClose, className, children }) => {
         {children}
       </div>
     </div>,
-    modalRoot
+    portal
   );
 };
-
 
 export default Modal;

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent } from "react";
 import styles from "./forgot-password.module.scss";
 import {
   EmailInput,
@@ -6,9 +6,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { checkEmail } from "../../../redux/thunkActions/password-reset/password-reset";
+import { checkEmail } from "../../../redux/syncs/password-reset/password-reset";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import selectPasswordReset from "../../../redux/selectors/password-reset";
+import { selectPasswordReset } from "../../../redux/slices/password-reset";
 
 const ForgotPassword = () => {
   const { successEmail, requestPasswordReset } =
@@ -43,11 +43,7 @@ const ForgotPassword = () => {
           placeholder={"Укажите e-mail"}
           required
         />
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-        >
+        <Button htmlType="submit" type="primary" size="medium">
           {requestPasswordReset ? "Проверяем..." : "Восстановить"}
         </Button>
       </form>

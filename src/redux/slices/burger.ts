@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IIngredient } from "../../api/rest/ingredients/type";
+import { RootState } from "../store";
 
-interface IInitialState {
+type BurgerState = {
   bun: IIngredient | null;
   filling: IIngredient[];
-}
+};
 
-const initialState: IInitialState = {
+const initialState: BurgerState = {
   bun: null,
   filling: [],
 };
@@ -39,3 +40,4 @@ export const burgerSlice = createSlice({
 export const { addBun, addFilling, removeFilling, clearBurger, updateFilling } =
   burgerSlice.actions;
 export default burgerSlice.reducer;
+export const selectBurger = (state: RootState) => state.burger;

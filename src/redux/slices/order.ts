@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IOrdersResponse } from "../../api/rest/orders/type";
-import { getOrder } from "../thunkActions/orders/orders";
+import { RootState } from "../store";
+import { postOrder } from "../syncs/orders/orders";
 
-interface IInitialState {
-  order: IOrdersResponse | null;
+type OrderState = {
+  newOrder: IOrdersResponse | null;
   orderRequest: boolean;
   orderFailed: boolean;
-}
+};
 
-const initialState: IInitialState = {
-  order: null,
+const initialState: OrderState = {
+  newOrder: null,
   orderRequest: false,
   orderFailed: false,
 };
@@ -19,26 +20,26 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     clearOrder(state) {
-      state.order = null;
+      state.newOrder = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getOrder.pending, (state) => {
+      .addCase(postOrder.pending, (state) => {
         state.orderRequest = true;
       })
-      .addCase(getOrder.fulfilled, (state, action) => {
+      .addCase(postOrder.fulfilled, (state, action) => {
         state.orderRequest = false;
         state.orderFailed = false;
-        state.order = action.payload;
+        state.newOrder = action.payload;
       })
-      .addCase(getOrder.rejected, (state, action) => {
+      .addCase(postOrder.rejected, (state, action) => {
         state.orderRequest = false;
         state.orderFailed = true;
-        console.log(action.error.message);
       });
   },
 });
 
 export const { clearOrder } = orderSlice.actions;
 export default orderSlice.reducer;
+export const selectOrder = (state: RootState) => state.order;
