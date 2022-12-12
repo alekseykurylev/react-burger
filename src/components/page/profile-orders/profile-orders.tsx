@@ -1,6 +1,5 @@
 import styles from "./profile-orders.module.scss";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { selectOrders } from "../../../redux/slices/orders";
+import { useAppDispatch } from "../../../redux/hooks";
 import OrdersList from "../../ui/orders-list/orders-list";
 import {
   connect as connectLive,
@@ -8,19 +7,17 @@ import {
 } from "../../../redux/store";
 import { useEffect } from "react";
 import NavbarProfile from "../../ui/navbar-profile/navbar-profile";
-
-export const LIVE_SERVER_URL = "wss://norma.nomoreparties.space/orders";
+import { liveUrl } from "../../../const/const";
 
 const Orders = () => {
   const dispatch = useAppDispatch();
-  //const { status, orders, total, totalToday } = useAppSelector(selectOrders);
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    dispatch(disconnectLive());
-    dispatch(
-      connectLive(`${LIVE_SERVER_URL}?token=${token?.replace("Bearer ", "")}`)
-    );
+    dispatch(connectLive(`${liveUrl}?token=${token?.replace("Bearer ", "")}`));
+    return () => {
+      dispatch(disconnectLive());
+    };
   }, [dispatch, token]);
 
   return (

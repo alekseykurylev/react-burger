@@ -7,15 +7,18 @@ import {
 } from "../../../redux/store";
 import { useEffect } from "react";
 import { selectOrders } from "../../../redux/slices/orders";
-import { v4 as uuidv4 } from "uuid";
 import { liveUrl } from "../../../const/const";
 
 const Feed = () => {
   const dispatch = useAppDispatch();
-  const { status, orders, total, totalToday } = useAppSelector(selectOrders);
+  const { orders, total, totalToday } = useAppSelector(selectOrders);
 
   useEffect(() => {
-    dispatch(connectLive(liveUrl));
+    dispatch(connectLive(`${liveUrl}/all`));
+
+    return () => {
+      dispatch(disconnectLive());
+    };
   }, [dispatch]);
 
   return (
@@ -35,7 +38,7 @@ const Feed = () => {
                       index <= 9 && (
                         <li
                           className="text text_type_digits-default text_color_success"
-                          key={uuidv4()}
+                          key={item._id}
                         >
                           {item.number}
                         </li>
@@ -53,7 +56,7 @@ const Feed = () => {
                       index <= 9 && (
                         <li
                           className="text text_type_digits-default"
-                          key={uuidv4()}
+                          key={item._id}
                         >
                           {item.number}
                         </li>

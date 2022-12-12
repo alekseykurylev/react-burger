@@ -6,7 +6,6 @@ import { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Order } from "../../../redux/slices/orders";
 import styles from "./card-order.module.scss";
-import { v4 as uuidv4 } from "uuid";
 import { useGetIngredientsQuery } from "../../../redux/api/ingredientsApi";
 
 interface ICardOrderProps {
@@ -34,7 +33,7 @@ const CardOrder: FC<ICardOrderProps> = ({ order }) => {
     return [bun, ...filling].map(
       (item, index) =>
         index < maxShowIngredients && (
-          <li className={styles.ingredient} key={uuidv4()}>
+          <li className={styles.ingredient} key={index}>
             <div className={styles.imgWrap}>
               <img
                 className={styles.img}
@@ -82,8 +81,6 @@ const CardOrder: FC<ICardOrderProps> = ({ order }) => {
     }
     return null;
   };
-
-  console.log(location.pathname);
 
   return (
     <Link

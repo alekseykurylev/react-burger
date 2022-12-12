@@ -3,9 +3,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { ordersNumberRequest } from "../../../api";
 import { useEffect, useState } from "react";
 import { IOrder } from "../../../api/rest/orders/type";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectIngredients } from "../../../redux/slices/ingredients";
-import { v4 as uuidv4 } from "uuid";
 import {
   CurrencyIcon,
   FormattedDate,
@@ -84,7 +81,12 @@ const FeedDetails = () => {
                   />
                 </div>
               </div>
-              <h3 className="text text_type_main-default">{bun.name}</h3>
+              <h3
+                className="text text_type_main-default"
+                style={{ alignSelf: "center" }}
+              >
+                {bun.name}
+              </h3>
               <div className={styles.sum}>
                 <p className="text text_type_digits-default">2 x {bun.price}</p>
                 <CurrencyIcon type="primary" />
@@ -92,28 +94,41 @@ const FeedDetails = () => {
             </li>
           )}
           {filling.length > 0 &&
-            filling.map((item) => (
-              <li className={styles.item} key={uuidv4()}>
-                <div className={styles.qwe}>
-                  <div className={styles.imgWrap}>
-                    <img
-                      className={styles.img}
-                      src={item?.image}
-                      width="112"
-                      height="56"
-                      alt={item?.name}
-                    />
+            filling
+              .filter((elem, index, self) => index === self.indexOf(elem))
+              .map((item, index) => (
+                <li className={styles.item} key={index}>
+                  <div className={styles.qwe}>
+                    <div className={styles.imgWrap}>
+                      <img
+                        className={styles.img}
+                        src={item?.image}
+                        width="112"
+                        height="56"
+                        alt={item?.name}
+                      />
+                    </div>
                   </div>
-                </div>
-                <h3 className="text text_type_main-default">{item?.name}</h3>
-                <div className={styles.sum}>
-                  <p className="text text_type_digits-default">
-                    1 x {item?.price}
-                  </p>
-                  <CurrencyIcon type="primary" />
-                </div>
-              </li>
-            ))}
+                  <h3
+                    className="text text_type_main-default"
+                    style={{ alignSelf: "center" }}
+                  >
+                    {item?.name}
+                  </h3>
+                  <div className={styles.sum}>
+                    <p className="text text_type_digits-default">
+                      {filling.reduce((total, i) => {
+                        if (i?._id === item?._id) {
+                          return total + 1;
+                        }
+                        return total;
+                      }, 0)}
+                      x{item?.price}
+                    </p>
+                    <CurrencyIcon type="primary" />
+                  </div>
+                </li>
+              ))}
         </ul>
         <div className={styles.footer}>
           <p className="text text_type_main-default text_color_inactive">

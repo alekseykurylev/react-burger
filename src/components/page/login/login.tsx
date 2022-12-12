@@ -1,18 +1,18 @@
 import styles from "./login.module.scss";
-import { ChangeEvent, FormEvent, useEffect } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../redux/syncs/auth/auth";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { selectUser } from "../../../redux/slices/user";
 
 const Login = () => {
-  const { isLoading, isLoggedIn } = useAppSelector(selectUser);
+  const { isLoading } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [form, setValue] = useState({ email: "", password: "" });
 
@@ -51,13 +51,7 @@ const Login = () => {
         />
         <Button htmlType="submit" type="primary" size="medium">
           {isLoading ? "Заходим..." : "Войти"}
-          {/* {isLoading ? "Заходим..." : "Войти"} */}
         </Button>
-        {/* {error && "status" in error && error.status === 401 && (
-          <p className="text text_type_main-small">
-            Адрес электронной почты или пароль неверны
-          </p>
-        )} */}
       </form>
       <p className="text text_type_main-default text_color_inactive">
         Вы — новый пользователь? <Link to="/register">Зарегистрироваться</Link>

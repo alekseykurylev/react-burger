@@ -1,5 +1,5 @@
 export const baseUrl = "https://norma.nomoreparties.space/api";
-export const liveUrl = "wss://norma.nomoreparties.space/orders/all";
+export const liveUrl = "wss://norma.nomoreparties.space/orders";
 
 export const categories = [
   {
