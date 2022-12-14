@@ -10,7 +10,7 @@ import { IUserData, ITokenData } from "./type";
 import { refreshTokens } from "../../../utils/utils";
 
 export const getUser = createAsyncThunk(
-  "auth/getUser",
+  "user/getUser",
   async (_, { rejectWithValue }) => {
     try {
       return await getUserRequest();
@@ -25,7 +25,7 @@ export const getUser = createAsyncThunk(
 );
 
 export const updateUser = createAsyncThunk(
-  "auth/updateUser",
+  "user/updateUser",
   async (data: IUserData, { rejectWithValue }) => {
     try {
       return await updateUserRequest("PATCH", data);
@@ -39,8 +39,8 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const register = createAsyncThunk(
-  "auth/register",
+export const registerUser = createAsyncThunk(
+  "user/register",
   async (data: IUserData, { rejectWithValue }) => {
     try {
       return await registerRequest(data);
@@ -50,8 +50,8 @@ export const register = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk(
-  "auth/login",
+export const loginUser = createAsyncThunk(
+  "user/login",
   async (data: IUserData, { rejectWithValue }) => {
     try {
       return await loginRequest(data);
@@ -61,8 +61,8 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(
-  "auth/logout",
+export const logoutUser = createAsyncThunk(
+  "user/logout",
   async (data: ITokenData, { rejectWithValue }) => {
     try {
       return await logoutRequest(data);

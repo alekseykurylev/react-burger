@@ -1,5 +1,5 @@
 import styles from "./reset-password.module.scss";
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent } from "react";
 import {
   PasswordInput,
   Button,
@@ -7,9 +7,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { resetPassword } from "../../../redux/thunkActions/password-reset/password-reset";
+import { resetPassword } from "../../../redux/syncs/password-reset/password-reset";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import selectPasswordReset from "../../../redux/selectors/password-reset";
+import { selectPasswordReset } from "../../../redux/slices/password-reset";
 
 const ResetPassword = () => {
   const { successEmail, successPassword, requestPasswordReset } =
@@ -56,11 +56,7 @@ const ResetPassword = () => {
           name={"token"}
           required
         />
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-        >
+        <Button htmlType="submit" type="primary" size="medium">
           {requestPasswordReset ? "Сохраняем..." : "Сохранить"}
         </Button>
       </form>

@@ -1,36 +1,35 @@
 import styles from "./login.module.scss";
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent } from "react";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useCallback } from "react";
-import { Link, Navigate } from "react-router-dom";
-import { login } from "../../../redux/thunkActions/auth/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../../redux/syncs/auth/auth";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import selectAuth from "../../../redux/selectors/auth";
+import { selectUser } from "../../../redux/slices/user";
 
 const Login = () => {
-  const { loadingAuth, isLoggedIn } = useAppSelector(selectAuth);
+  const { isLoading } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [form, setValue] = useState({ email: "", password: "" });
+
+  const navigate = useNavigate();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  let handleSubmit = useCallback(
+  const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      dispatch(login({ email: form.email, password: form.password }));
+      dispatch(loginUser({ email: form.email, password: form.password }));
+      navigate("/");
     },
-    [dispatch, form]
+    [dispatch, form, navigate]
   );
-
-  if (isLoggedIn) {
-    return <Navigate to="/" replace={true} />;
-  }
 
   return (
     <section className={styles.section}>
@@ -50,12 +49,8 @@ const Login = () => {
           placeholder={"Пароль"}
           required
         />
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-        >
-          {loadingAuth ? "Заходим..." : "Войти"}
+        <Button htmlType="submit" type="primary" size="medium">
+          {isLoading ? "Заходим..." : "Войти"}
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive">

@@ -1,9 +1,18 @@
+.grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 60px;
+  composes: pt-30 from global;
+}
+
 .form {
   display: flex;
   flex-direction: column;
   gap: 24px;
+
   &__buttons {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+    max-width: 480px;
   }
 }

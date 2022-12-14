@@ -8,13 +8,13 @@ import burgerConstructor from "./burger-constructor.module.scss";
 import Modal from "../ui/modal/modal";
 import OrderDetails from "../ui/order-details/order-details";
 import { useDrop } from "react-dnd";
-import { getOrder } from "../../redux/thunkActions/orders/orders";
+import { postOrder } from "../../redux/syncs/orders/orders";
 import DragItem from "../ui/drag-item/drag-item";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import selectBurger from "../../redux/selectors/burger";
-import selectAuth from "../../redux/selectors/auth";
-import selectOrder from "../../redux/selectors/order";
+import { selectBurger } from "../../redux/slices/burger";
+import { selectUser } from "../../redux/slices/user";
+import { selectOrder } from "../../redux/slices/order";
 import {
   addBun,
   addFilling,
@@ -26,8 +26,8 @@ import { clearOrder } from "../../redux/slices/order";
 import { IIngredient } from "../../api/rest/ingredients/type";
 
 const BurgerConstructor = () => {
-  const { isLoggedIn } = useAppSelector(selectAuth);
-  const { order, orderRequest } = useAppSelector(selectOrder);
+  const { isLoggedIn } = useAppSelector(selectUser);
+  const { newOrder, orderRequest } = useAppSelector(selectOrder);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -71,7 +71,7 @@ const BurgerConstructor = () => {
         id.ingredients.push(item._id);
       });
 
-      dispatch(getOrder(id));
+      dispatch(postOrder(id));
     }
   };
 
@@ -161,9 +161,9 @@ const BurgerConstructor = () => {
         )}
       </section>
 
-      {order && (
+      {newOrder && (
         <Modal onClose={closeModal} className="order">
-          <OrderDetails order={order} />
+          <OrderDetails order={newOrder} />
         </Modal>
       )}
     </>

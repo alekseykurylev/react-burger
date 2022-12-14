@@ -1,5 +1,5 @@
 import { ingredientsRequest } from "./rest/ingredients/ingredients";
-import { ordersRequest } from "./rest/orders/orders";
+import { ordersRequest, ordersNumberRequest } from "./rest/orders/orders";
 import {
   checkEmailRequest,
   resetPasswordRequest,
@@ -24,4 +24,5 @@ export {
   tokenRequest,
   registerRequest,
   loginRequest,
+  ordersNumberRequest,
 };

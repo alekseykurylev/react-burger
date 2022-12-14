@@ -1,24 +1,17 @@
 import styles from "./ingredient-details.module.scss";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hooks";
-import selectIngredients from "../../../redux/selectors/ingredients";
+import { selectIngredients } from "../../../redux/slices/ingredients";
+import { useGetIngredientsQuery } from "../../../redux/api/ingredientsApi";
 
 const IngredientDetails = () => {
-  const { ingredients, ingredientsFailed, ingredientsRequest } =
-    useAppSelector(selectIngredients);
+  //const { ingredients } = useAppSelector(selectIngredients);
+  const { data } = useGetIngredientsQuery("");
   const params = useParams();
 
-  const ingredient = ingredients.find(
+  const ingredient = data?.data.find(
     (ingredient) => ingredient._id === params.id
   );
-
-  if (ingredientsRequest) {
-    return <div>Загрузка...</div>;
-  }
-
-  if (ingredientsFailed) {
-    return <div>Ошибка сервера, зайдите позже.</div>;
-  }
 
   return (
     <section className="pt-30 pb-30">

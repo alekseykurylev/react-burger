@@ -1,18 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IIngredient } from "../../api/rest/ingredients/type";
-import { getIngredients } from "../thunkActions/ingredients/ingredients";
+import { RootState } from "../store";
+import { getIngredients } from "../syncs/ingredients/ingredients";
 
-interface IInitialState {
+type IngredientsState = {
   ingredients: IIngredient[];
-  ingredientsRequest: boolean;
-  ingredientsFailed: boolean;
+  isLoadingIngredients: boolean;
+  isErrorIngredients: boolean;
   categories: { [key: string]: string }[];
-}
+};
 
-const initialState: IInitialState = {
+const initialState: IngredientsState = {
   ingredients: [],
-  ingredientsRequest: false,
-  ingredientsFailed: false,
+  isLoadingIngredients: false,
+  isErrorIngredients: false,
   categories: [
     {
       type: "bun",
@@ -36,19 +37,20 @@ export const ingredientsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getIngredients.pending, (state) => {
-        state.ingredientsRequest = true;
+        state.isLoadingIngredients = true;
       })
       .addCase(getIngredients.fulfilled, (state, action) => {
-        state.ingredientsRequest = false;
-        state.ingredientsFailed = false;
+        state.isLoadingIngredients = false;
+        state.isErrorIngredients = false;
         state.ingredients = action.payload.data;
       })
       .addCase(getIngredients.rejected, (state, action) => {
-        state.ingredientsRequest = false;
-        state.ingredientsFailed = true;
+        state.isLoadingIngredients = false;
+        state.isErrorIngredients = true;
         console.log(action.error.message);
       });
   },
 });
 
 export default ingredientsSlice.reducer;
+export const selectIngredients = (state: RootState) => state.ingredients;

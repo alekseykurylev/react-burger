@@ -8,7 +8,7 @@ import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useAppSelector } from "../../../redux/hooks";
-import selectBurger from "../../../redux/selectors/burger";
+import { selectBurger } from "../../../redux/slices/burger";
 import { IIngredient } from "../../../api/rest/ingredients/type";
 
 interface IProps {
