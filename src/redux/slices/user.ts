@@ -44,7 +44,6 @@ export const userSlice = createSlice({
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        console.error(action.payload, action.error);
       })
 
       .addCase(updateUser.pending, (state) => {
@@ -60,7 +59,6 @@ export const userSlice = createSlice({
       .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        console.error(action.payload, action.error);
       })
 
       .addCase(loginUser.pending, (state) => {
@@ -77,7 +75,6 @@ export const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
-        console.error(action.payload);
       })
 
       .addCase(registerUser.pending, (state) => {
@@ -94,7 +91,6 @@ export const userSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        console.error(action.payload, action.error);
       })
 
       .addCase(logoutUser.pending, (state) => {
@@ -112,7 +108,6 @@ export const userSlice = createSlice({
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        console.error(action.payload, action.error);
       });
   },
 });

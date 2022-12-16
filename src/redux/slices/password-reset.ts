@@ -39,7 +39,6 @@ export const passwordResetSlice = createSlice({
       .addCase(checkEmail.rejected, (state, action) => {
         state.requestPasswordReset = false;
         state.failedPasswordReset = true;
-        console.log(action.error.message);
       })
 
       .addCase(resetPassword.pending, (state) => {
@@ -51,10 +50,9 @@ export const passwordResetSlice = createSlice({
         state.successPassword = action.payload.success;
         state.messagePasswordReset = action.payload.message;
       })
-      .addCase(resetPassword.rejected, (state, action) => {
+      .addCase(resetPassword.rejected, (state) => {
         state.requestPasswordReset = false;
         state.failedPasswordReset = true;
-        console.log(action.error.message);
       });
   },
 });

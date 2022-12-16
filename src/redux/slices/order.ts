@@ -33,7 +33,7 @@ export const orderSlice = createSlice({
         state.orderFailed = false;
         state.newOrder = action.payload;
       })
-      .addCase(postOrder.rejected, (state, action) => {
+      .addCase(postOrder.rejected, (state) => {
         state.orderRequest = false;
         state.orderFailed = true;
       });
