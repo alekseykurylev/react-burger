@@ -13,11 +13,11 @@ const Close = ({ onClose, className }: IProps) => {
       onClick={onClose}
       className={`${close.button}${className ? ` ${className}` : ""}`}
       type="button"
+      data-testid="btn-close"
     >
       <CloseIcon type="primary" />
     </button>
   );
 };
-
 
 export default Close;

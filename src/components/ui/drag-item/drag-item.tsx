@@ -68,6 +68,7 @@ const DragItem = ({ item, index, removeIngredient, moveElement }: IProps) => {
       onDrop={preventDefault}
       data-handler-id={handlerId}
       style={{ opacity }}
+      data-testid={item._id}
     >
       <DragIcon type="primary" />
       <ConstructorElement

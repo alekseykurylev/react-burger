@@ -1,12 +1,11 @@
 import React, { useCallback } from "react";
 import styles from "./navbar-profile.module.scss";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getRefreshToken } from "../../../utils/utils";
 import { logoutUser } from "../../../redux/syncs/auth/auth";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const NavbarProfile = () => {
-  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
 
   const handleLogout = useCallback(() => {

@@ -39,6 +39,7 @@ const Modal: FC<IProps> = ({ onClose, className, children }) => {
       className={
         className ? `${styles.modal} ${styles[className]}` : styles.modal
       }
+      data-testid="modal"
     >
       <ModalOverlay onCloseModal={onClose} />
       <div className={styles.content}>

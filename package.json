@@ -1,5 +1,5 @@
 {
-  "homepage": "./",
+  "homepage": "https://alekseykurylev.github.io/react-burger",
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
@@ -34,7 +34,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +56,9 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.3",
+    "cypress": "^12.1.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "gh-pages": "^4.0.0"
   }
 }

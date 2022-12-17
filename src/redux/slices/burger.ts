@@ -23,9 +23,7 @@ export const burgerSlice = createSlice({
       state.filling = [...state.filling, { ...action.payload }];
     },
     removeFilling(state, action) {
-      state.filling = state.filling.filter(
-        (item) => item.dragId !== action.payload
-      );
+      state.filling = action.payload;
     },
     clearBurger(state) {
       state.bun = null;

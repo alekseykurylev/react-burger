@@ -2,13 +2,10 @@ import styles from "./burger-ingredients.module.scss";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef, useState, useEffect } from "react";
 import CategoryIngredients from "../ui/category-ingredients/category-ingredients";
-import { useAppSelector } from "../../redux/hooks";
-import { selectIngredients } from "../../redux/slices/ingredients";
 
 import { categories } from "../../const/const";
 
 const BurgerIngredients = () => {
-  //const { categories } = useAppSelector(selectIngredients);
   const [currentCategory, setCurrentCategory] = useState("bun");
   const ref = useRef<HTMLDivElement>(null);
 

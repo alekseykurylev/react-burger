@@ -1,11 +1,8 @@
 import styles from "./ingredient-details.module.scss";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectIngredients } from "../../../redux/slices/ingredients";
 import { useGetIngredientsQuery } from "../../../redux/api/ingredientsApi";
 
 const IngredientDetails = () => {
-  //const { ingredients } = useAppSelector(selectIngredients);
   const { data } = useGetIngredientsQuery("");
   const params = useParams();
 
@@ -14,7 +11,7 @@ const IngredientDetails = () => {
   );
 
   return (
-    <section className="pt-30 pb-30">
+    <section className="pt-30 pb-30" data-testid="modal-ingredient">
       <div key={ingredient?._id} className={styles.body}>
         <h3 className={styles.title}>Детали ингредиента</h3>
         <img src={ingredient?.image_large} alt={ingredient?.name} />
