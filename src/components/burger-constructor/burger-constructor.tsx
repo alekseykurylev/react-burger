@@ -93,7 +93,7 @@ const BurgerConstructor = () => {
 
   return (
     <>
-      <section className="pt-25" ref={dropTarget}>
+      <section className="pt-25" ref={dropTarget} data-testid="dropTarget">
         {bun || filling.length > 0 ? (
           <>
             <div className={burgerConstructor.burger}>
@@ -142,6 +142,7 @@ const BurgerConstructor = () => {
                 htmlType="button"
                 onClick={sendBurger}
                 disabled={!bun || !filling ? true : false}
+                data-testid="btn-send-burger"
               >
                 {orderRequest ? "Оформляем..." : "Оформить заказ"}
               </Button>

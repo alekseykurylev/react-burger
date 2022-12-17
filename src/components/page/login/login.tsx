@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { selectUser } from "../../../redux/slices/user";
 
 const Login = () => {
-  const { isLoading } = useAppSelector(selectUser);
+  const { isLoading, isLoggedIn } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [form, setValue] = useState({ email: "", password: "" });
 
@@ -26,10 +26,13 @@ const Login = () => {
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(loginUser({ email: form.email, password: form.password }));
-      navigate("/");
     },
     [dispatch, form, navigate]
   );
+
+  if (isLoggedIn) {
+    navigate("/");
+  }
 
   return (
     <section className={styles.section}>
@@ -49,7 +52,12 @@ const Login = () => {
           placeholder={"Пароль"}
           required
         />
-        <Button htmlType="submit" type="primary" size="medium">
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="medium"
+          data-testid="btn-login"
+        >
           {isLoading ? "Заходим..." : "Войти"}
         </Button>
       </form>

@@ -1,14 +1,10 @@
 import styles from "./category-ingredients.module.scss";
 import IngredientItem from "../ingredient-item/ingredient-item";
 import { forwardRef } from "react";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectIngredients } from "../../../redux/slices/ingredients";
 import { useGetIngredientsQuery } from "../../../redux/api/ingredientsApi";
 import { categories } from "../../../const/const";
 
 const CategoryIngredients = forwardRef<HTMLDivElement>((_, ref) => {
-  //const { ingredients, categories } = useAppSelector(selectIngredients);
-
   const { data } = useGetIngredientsQuery("");
 
   return (

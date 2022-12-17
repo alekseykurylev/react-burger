@@ -42,6 +42,7 @@ const IngredientItem = ({ ingredient }: IProps) => {
       state={{ background: location }}
       className={styles.card}
       ref={dragRef}
+      data-testid={ingredient._id}
     >
       <img src={ingredient.image} alt={ingredient.name} className="mb-1" />
       <p className={`text text_type_digits-default mb-1 ${styles.price}`}>
