@@ -5,11 +5,15 @@ describe("constructor", function () {
     cy.get("[data-testid=60d3b41abdacab0026a733c6]").drag(
       "[data-testid=dropTarget]"
     );
+    cy.get("[data-testid=dropTarget]").find(
+      "[data-testid=60d3b41abdacab0026a733c6]"
+    );
+
     cy.get("[data-testid=60d3b41abdacab0026a733d2]").drag(
       "[data-testid=dropTarget]"
     );
-    cy.get("[data-testid=60d3b41abdacab0026a733ce]").drag(
-      "[data-testid=dropTarget]"
+    cy.get("[data-testid=dropTarget]").find(
+      "[data-testid=60d3b41abdacab0026a733d2]"
     );
 
     cy.get("[data-testid=btn-send-burger]").click();
