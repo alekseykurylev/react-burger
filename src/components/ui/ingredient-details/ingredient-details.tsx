@@ -1,11 +1,8 @@
 import styles from "./ingredient-details.module.scss";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectIngredients } from "../../../redux/slices/ingredients";
 import { useGetIngredientsQuery } from "../../../redux/api/ingredientsApi";
 
 const IngredientDetails = () => {
-  //const { ingredients } = useAppSelector(selectIngredients);
   const { data } = useGetIngredientsQuery("");
   const params = useParams();
 

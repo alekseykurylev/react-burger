@@ -27,7 +27,7 @@ const Login = () => {
       e.preventDefault();
       dispatch(loginUser({ email: form.email, password: form.password }));
     },
-    [dispatch, form, navigate]
+    [dispatch, form]
   );
 
   if (isLoggedIn) {
