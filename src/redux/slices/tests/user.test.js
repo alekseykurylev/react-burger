@@ -58,7 +58,7 @@ describe("userSlice", () => {
   });
 
   test("should change status and error with 'updateUser.rejected' action", () => {
-    const state = reducer(initialState, getUser.rejected());
+    const state = reducer(initialState, updateUser.rejected());
 
     expect(state.isLoading).toBe(false);
     expect(state.error).toBe(undefined);

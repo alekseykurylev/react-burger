@@ -47,9 +47,9 @@ describe("burgerSlice", () => {
   });
 
   test('should remove filling with "removeFilling" action', () => {
-    const state = reducer(initialState, removeFilling("string"));
+    const state = reducer(initialState, removeFilling([ingredient]));
 
-    expect(state.filling).toEqual([]);
+    expect(state.filling).toEqual([ingredient]);
   });
 
   test('should clear burger with "clearBurger" action', () => {

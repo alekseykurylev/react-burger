@@ -57,7 +57,8 @@ const BurgerConstructor = () => {
   });
 
   const removeIngredient = (dragId: string) => {
-    dispatch(removeFilling(dragId));
+    const deleted = filling.filter((item) => item.dragId !== dragId);
+    dispatch(removeFilling(deleted));
   };
 
   const sendBurger = () => {
@@ -99,13 +100,15 @@ const BurgerConstructor = () => {
             <div className={burgerConstructor.burger}>
               <div className={burgerConstructor.bun}>
                 {bun && (
-                  <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={`${bun.name} (верх)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                  />
+                  <div data-testid={bun._id}>
+                    <ConstructorElement
+                      type="top"
+                      isLocked={true}
+                      text={`${bun.name} (верх)`}
+                      price={bun.price}
+                      thumbnail={bun.image}
+                    />
+                  </div>
                 )}
               </div>
               <ul className={burgerConstructor.dragList}>
@@ -121,13 +124,15 @@ const BurgerConstructor = () => {
               </ul>
               <div className={burgerConstructor.bun}>
                 {bun && (
-                  <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={`${bun.name} (низ)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                  />
+                  <div data-testid={bun._id}>
+                    <ConstructorElement
+                      type="bottom"
+                      isLocked={true}
+                      text={`${bun.name} (низ)`}
+                      price={bun.price}
+                      thumbnail={bun.image}
+                    />
+                  </div>
                 )}
               </div>
             </div>
